@@ -23,7 +23,6 @@ Accent Color: #ff9900 (orange) <br/>
 
 ---
 ## Required Fields ##
-## Required Fields ##
 This will be a list of fields and their datatype (class design format).  
 There are expected to be a minimum of six fields.  
 
@@ -59,7 +58,7 @@ if frequentRiderIndicator == true
 ticketPrice = ticketPrice * 0.85
 
 ---
-## Report Details - THESE ARE NOT REQUIRED FOR SPRINT 1 ##
+## Report Details ##
 1. Provide all tickets purchased by a given passenger (search by name).  <br/>
 2. Provide tickets issued on a specific date (ordered by departure time).  <br/>
 3. Provide a revenue report showing all tickets sold within a date range.  
