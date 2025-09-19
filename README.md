@@ -2,55 +2,64 @@
 
 ---
 ## Development Team ##
-Business Client:  BJ MacLean
+Business Client:  Ryley Collicutt 
 <br/>
-Lead Developer:  BJ MacLean
+Lead Developer:  Brownhill Udeh 
 <br/>
-Quality Control:  BJ MacLean
+Quality Control:  Hunter
 <br/>
 ---
 ## Description ##
-This project will allow the tracking of squash skills based on standard technical skill assessments.  This includes forehad and backhand drives and volleys.  The technical score
-is calculated based on the players number of successful hits.  The following two links provide a demonstration of how it works in a spreadsheet and gives examples of
-the calculation.  <br/><br/>
-- https://docs.google.com/spreadsheets/d/19vjrh-0o7_vkw0Wj2n5tp2LzN9qZ-qc0K1GJWFWlPsQ<br/>
-- https://forms.gle/K1BioRyX1j8s6Dct9
+This project will allow the tracking of **train tickets**.  
+It records details such as the customer’s name, when the ticket was issued, station of departure, time of departure, travel length, and destination.  
+The application also calculates the ticket price based on travel distance and applies discounts depending on whether the passenger is a student or a frequent rider.    <br/><br/>
+
 ---
 ## Color ##
-Main Color:  #000000 (black)<br/>
-Secondary Color: #9c9a9a (grey)<br/>
-Accent Color:  #fcba03 (yellow)<br/>
+Main Color: #003366 (dark blue) <br/>
+Secondary Color: #f2f2f2 (light grey) <br/>
+Accent Color: #ff9900 (orange) <br/>
+
+
 ---
 ## Required Fields ##
-This will be a list of fields and their datatype (class design format).  There are expected to be a minimum of six fields.  
--id: int //primary key <br/>
--assessmentDate: String Note:  yyyy-MM-dd <br/>
--createdDateTime: String Note: yyyy-MM-dd hh:mm:ss  <br/>
--athleteName: String <br/>
--assessorName: String <br/>
--forehandDrives: int <br/>
--backhandDrives: int <br/>
--forehandVolleyMax: int <br/>
--forehandVolleySum: int <br/>
--backhandVolleyMax: int <br/>
--backhandVolleySum: int <br/>
--technicalScore: int <br/>
+## Required Fields ##
+This will be a list of fields and their datatype (class design format).  
+There are expected to be a minimum of six fields.  
+
+- id: int // primary key <br/>  
+- name: String // customer name <br/>  
+- issueDate: String // yyyy-MM-dd <br/>  
+- station: String // station customer is leaving from <br/>  
+- departureTime: String // hh:mm <br/>  
+- destination: String // train destination <br/>  
+- travelLength: int // length of travel in kilometers <br/>  
+- ticketPrice: int // price of the ticket (calculated) <br/>  
+- studentIndicator: boolean // is the customer a student? <br/>  
+- frequentRiderIndicator: boolean // is the customer a frequent rider? <br/>  
+
 ---
 ## Calculation ##
 
-Once the user enters all of values, the program will calculate the overall points for the assessment.  Each skill is entered provides points towards the overall technical score.  See the spreadsheet link above for a functioning example.
+The program will calculate the **ticket price** based on travel length and discounts.  
+
 <br/>
-Fh and bh drives 15 points each<br/>
-Fh and bh volley sum 5 points each<br/>
-Fh and bh volley max 8 points each<br/>
+Base Price = travelLength * 5 <br/>  
+Student Discount = 20% <br/>  
+Frequent Rider Discount = 15% <br/>  
 <br/>
-Example technical score calculation:<br/>
-<br/>
-forehandDrives * 15 + backhandDrives *15<br/>
-+forehandVolleySum * 5 + backhandVolleySum * 5<br/>
-+forehandVolleyMax * 8 + backhandVolleyMax *8<br/>
+
+Example ticket price calculation:  
+ticketPrice = travelLength * 5
+
+if studentIndicator == true
+ticketPrice = ticketPrice * 0.8
+
+if frequentRiderIndicator == true
+ticketPrice = ticketPrice * 0.85
 
 ---
-## Report Details -THESE ARE NOT REQUIRED FOR SPRINT 1##
-1 Provide all of the assesssments for a given player.  The player name can be entered and the report will provide all of their assessments ordered by date assessed descending.<br/>
-2 Provide the assessments in a technical assessment score range.  The user can enter the min and max (inclusive) and see all of the assessments completed in that range.<br/>
+## Report Details - THESE ARE NOT REQUIRED FOR SPRINT 1 ##
+1. Provide all tickets purchased by a given passenger (search by name).  <br/>
+2. Provide tickets issued on a specific date (ordered by departure time).  <br/>
+3. Provide a revenue report showing all tickets sold within a date range.  
