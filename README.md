@@ -1,45 +1,56 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+# Project:  Squash Skills Tracking #
 
 ---
+## Development Team ##
+Business Client:  BJ MacLean
+<br/>
+Lead Developer:  BJ MacLean
+<br/>
+Quality Control:  BJ MacLean
+<br/>
+---
+## Description ##
+This project will allow the tracking of squash skills based on standard technical skill assessments.  This includes forehad and backhand drives and volleys.  The technical score
+is calculated based on the players number of successful hits.  The following two links provide a demonstration of how it works in a spreadsheet and gives examples of
+the calculation.  <br/><br/>
+- https://docs.google.com/spreadsheets/d/19vjrh-0o7_vkw0Wj2n5tp2LzN9qZ-qc0K1GJWFWlPsQ<br/>
+- https://forms.gle/K1BioRyX1j8s6Dct9
+---
+## Color ##
+Main Color:  #000000 (black)<br/>
+Secondary Color: #9c9a9a (grey)<br/>
+Accent Color:  #fcba03 (yellow)<br/>
+---
+## Required Fields ##
+This will be a list of fields and their datatype (class design format).  There are expected to be a minimum of six fields.  
+-id: int //primary key <br/>
+-assessmentDate: String Note:  yyyy-MM-dd <br/>
+-createdDateTime: String Note: yyyy-MM-dd hh:mm:ss  <br/>
+-athleteName: String <br/>
+-assessorName: String <br/>
+-forehandDrives: int <br/>
+-backhandDrives: int <br/>
+-forehandVolleyMax: int <br/>
+-forehandVolleySum: int <br/>
+-backhandVolleyMax: int <br/>
+-backhandVolleySum: int <br/>
+-technicalScore: int <br/>
+---
+## Calculation ##
 
-## Edit a file
-
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+Once the user enters all of values, the program will calculate the overall points for the assessment.  Each skill is entered provides points towards the overall technical score.  See the spreadsheet link above for a functioning example.
+<br/>
+Fh and bh drives 15 points each<br/>
+Fh and bh volley sum 5 points each<br/>
+Fh and bh volley max 8 points each<br/>
+<br/>
+Example technical score calculation:<br/>
+<br/>
+forehandDrives * 15 + backhandDrives *15<br/>
++forehandVolleySum * 5 + backhandVolleySum * 5<br/>
++forehandVolleyMax * 8 + backhandVolleyMax *8<br/>
 
 ---
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+## Report Details -THESE ARE NOT REQUIRED FOR SPRINT 1##
+1 Provide all of the assesssments for a given player.  The player name can be entered and the report will provide all of their assessments ordered by date assessed descending.<br/>
+2 Provide the assessments in a technical assessment score range.  The user can enter the min and max (inclusive) and see all of the assessments completed in that range.<br/>
