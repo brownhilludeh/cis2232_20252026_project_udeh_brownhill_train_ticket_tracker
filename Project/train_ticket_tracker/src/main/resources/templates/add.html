@@ -1,56 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>Add Train Ticket</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Add Train Ticket</h1>
-        <form th:action="@{/add}" th:object="${passenger}" method="post">
-            <div class="mb-3">
-                <label class="form-label">Passenger Name:</label>
-                <input type="text" th:field="*{name}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Date Issued:</label>
-                <input type="date" th:field="*{dateIssued}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Station:</label>
-                <input type="text" th:field="*{station}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Departure Time:</label>
-                <input type="time" th:field="*{departureTime}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Destination:</label>
-                <input type="text" th:field="*{destination}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Travel Length (km):</label>
-                <input type="number" th:field="*{travelLength}" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Ticket Price ($):</label>
-                <input type="number" th:field="*{ticketPrice}" class="form-control" required />
-            </div>
-            <div class="form-check mb-3">
-                <input type="checkbox" th:field="*{student}" class="form-check-input" />
-                <label class="form-check-label">Student?</label>
-            </div>
-            <div class="form-check mb-3">
-                <input type="checkbox" th:field="*{frequent}" class="form-check-input" />
-                <label class="form-check-label">Frequent Traveler?</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Ticket</button>
-            <a th:href="@{/}" class="btn btn-secondary ms-2">Back</a>
-        </form>
-    </div>
+<div class="container mt-5">
+    <h1 class="mb-4">Add Train Ticket</h1>
+    <form th:action="@{/add}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Passenger Name:</label>
+            <input type="text" class="form-control" name="name" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Issue Date:</label>
+            <input type="date" class="form-control" name="issueDate" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Station:</label>
+            <input type="text" class="form-control" name="station" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Departure Time:</label>
+            <input type="time" class="form-control" name="departureTime" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Destination:</label>
+            <input type="text" class="form-control" name="destination" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Travel Length (km):</label>
+            <input type="number" class="form-control" name="travelLength" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ticket Price ($):</label>
+            <input type="number" step="0.01" class="form-control" name="ticketPrice" required/>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" name="student"/>
+            <label class="form-check-label">Student?</label>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" name="frequent"/>
+            <label class="form-check-label">Frequent Traveler?</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Ticket</button>
+        <a class="btn btn-secondary" th:href="@{/}">Back</a>
+    </form>
+</div>
 </body>
-
 </html>

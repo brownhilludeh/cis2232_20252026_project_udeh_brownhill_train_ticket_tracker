@@ -3,20 +3,19 @@ CREATE DATABASE cis2232_train_ticket_tracker;
 USE cis2232_train_ticket_tracker;
 
 CREATE TABLE Ticket (
-    ticketId INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL COMMENT 'Customer name',
-    issueDate DATE NOT NULL COMMENT 'Date ticket was issued',
-    station VARCHAR(50) NOT NULL COMMENT 'Departure station',
-    departureTime TIME NOT NULL COMMENT 'Time of departure',
-    destination VARCHAR(50) NOT NULL COMMENT 'Train destination',
-    travelLength INT NOT NULL COMMENT 'Length of travel in kilometers',
-    ticketPrice DECIMAL(8,2) NOT NULL COMMENT 'Calculated price of the ticket',
-    studentIndicator BOOLEAN DEFAULT 0 COMMENT 'Is the customer a student?',
-    frequentRiderIndicator BOOLEAN DEFAULT 0 COMMENT 'Is the customer a frequent rider?',
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    issueDate DATE NOT NULL,
+    station VARCHAR(50) NOT NULL ,
+    departureTime TIME NOT NULL ,
+    destination VARCHAR(50) NOT NULL ,
+    travelLength INT NOT NULL ,
+    ticketPrice DECIMAL(8,2) NOT NULL ,
+    studentIndicator BOOLEAN DEFAULT 0,
+    frequentRiderIndicator BOOLEAN DEFAULT 0 ,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'When the record was created',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last time the record was updated'
-) COMMENT='This table holds train ticket records';
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );
 
 INSERT INTO Ticket 
 (name, issueDate, station, departureTime, destination, travelLength, ticketPrice, studentIndicator, frequentRiderIndicator) 
