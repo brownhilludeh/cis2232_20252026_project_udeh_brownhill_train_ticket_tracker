@@ -1,4 +1,4 @@
-package ca.hccis.t3;
+package ca.hccis.t3.entity;
 
 import ca.hccis.t3.util.CisUtility;
 import com.google.gson.Gson;
@@ -85,7 +85,7 @@ public class TrainTicketTracker {
     /**
      * Static helper to convert any object to JSON
      */
-    public static String toJson(Object obj) {
-        return new Gson().toJson(obj);
-    }
+//    public static String toJson(Object obj) {
+//        return new Gson().toJson(obj);
+//    }
 }
