@@ -1,11 +1,17 @@
 package ca.hccis.t3.entity;
 
-import ca.hccis.t3.util.CisUtility;
-import com.google.gson.Gson;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class TrainTicketTracker {
 
-    // Passenger information
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // primary key
+
     private String name;
     private String dateIssued;
     private String station;
@@ -16,22 +22,13 @@ public class TrainTicketTracker {
     private boolean isStudent;
     private boolean isFrequent;
 
-    /**
-     * Prompt the user to enter passenger information
-     */
-    public void getInformation() {
-        this.name = CisUtility.getInputString("Enter passenger's name: ");
-        this.dateIssued = CisUtility.getInputString("Enter date issued: ");
-        this.station = CisUtility.getInputString("Enter station: ");
-        this.departureTime = CisUtility.getInputString("Enter departure time: ");
-        this.destination = CisUtility.getInputString("Enter destination: ");
-        this.travelLength = CisUtility.getInputInt("Enter travel length: ");
-        this.ticketPrice = CisUtility.getInputInt("Enter ticket price: ");
-        this.isFrequent = CisUtility.getInputBoolean("Is the passenger a frequent traveler? ");
-        this.isStudent = CisUtility.getInputBoolean("Is the passenger a student? ");
-    }
+    // Empty constructor required by JPA
+    public TrainTicketTracker() {}
 
     // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -58,34 +55,4 @@ public class TrainTicketTracker {
 
     public boolean isFrequent() { return isFrequent; }
     public void setFrequent(boolean frequent) { this.isFrequent = frequent; }
-
-    /**
-     * Convert this object to JSON string
-     */
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
-
-    /**
-     * Override toString to display passenger information
-     */
-    @Override
-    public String toString() {
-        return "Passenger: " + name
-                + "\nDate Issued: " + dateIssued
-                + "\nStation: " + station
-                + "\nDeparture Time: " + departureTime
-                + "\nDestination: " + destination
-                + "\nTravel Length: " + travelLength
-                + "\nTicket Price: " + ticketPrice
-                + "\nStudent: " + isStudent
-                + "\nFrequent Traveler: " + isFrequent;
-    }
-
-    /**
-     * Static helper to convert any object to JSON
-     */
-//    public static String toJson(Object obj) {
-//        return new Gson().toJson(obj);
-//    }
 }

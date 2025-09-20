@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Train Ticket Tracker</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .card h1 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .btn-custom {
+            margin: 0.5rem 0;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
 </head>
+
 <body>
-<h1 th:text="${message}">Default Message</h1>
+<div class="card col-md-4 col-sm-8">
+    <h1>Train Ticket Tracker</h1>
+    <a href="/add" class="btn btn-primary btn-custom">Add Passenger's Data</a>
+    <a href="/show" class="btn btn-success btn-custom">Show Passenger's Information</a>
+    <a href="/exit" class="btn btn-danger btn-custom">Exit</a>
+    <p th:text="${message}"></p>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

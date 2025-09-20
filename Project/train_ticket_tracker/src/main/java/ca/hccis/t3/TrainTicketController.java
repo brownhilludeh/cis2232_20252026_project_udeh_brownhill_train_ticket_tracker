@@ -1,6 +1,7 @@
 package ca.hccis.t3;
 
 import ca.hccis.t3.entity.TrainTicketTracker;
+import ca.hccis.t3.service.PassengerService;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,58 +20,33 @@ import java.util.List;
 @RequestMapping("/tickets")
 public class TrainTicketController {
 
-    private static final String PATH = "e:\\CIS2232\\";
-    private static final String FILE_NAME = "data_udeh_brownhill.json";
-    private static final Path dataPath = Paths.get(PATH + FILE_NAME);
-    private static final Gson gson = new Gson();
+    private final PassengerService passengerService;
 
-    static {
-        // Ensure the file exists
-        try {
-            File file = new File(dataPath.toString());
-            if (!file.exists()) file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException("Error creating data file", e);
-        }
+    // Inject the service via constructor
+    public TrainTicketController(PassengerService passengerService) {
+        this.passengerService = passengerService;
     }
 
-    // Home page
     @GetMapping("/")
     public String home() {
-        return "index"; // src/main/resources/templates/index.html
+        return "index";
     }
 
-    // Show all passengers
     @GetMapping("/all")
     public String showPassengers(Model model) {
-        List<TrainTicketTracker> passengers = new ArrayList<>();
-        try {
-            List<String> lines = Files.readAllLines(dataPath);
-            for (String line : lines) {
-                passengers.add(gson.fromJson(line, TrainTicketTracker.class));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        model.addAttribute("passengers", passengers);
-        return "passengers"; // templates/passengers.html
+        model.addAttribute("passengers", passengerService.getAllPassengers());
+        return "passengers";
     }
 
-    // Form to add passenger
     @GetMapping("/add")
     public String addPassengerForm(Model model) {
         model.addAttribute("passenger", new TrainTicketTracker());
-        return "addPassenger"; // templates/addPassenger.html
+        return "addPassenger";
     }
 
-    // Handle form submission
     @PostMapping("/add")
-    public String addPassengerSubmit(@ModelAttribute TrainTicketTracker passenger, Model model) {
-        try (FileWriter writer = new FileWriter(dataPath.toString(), true)) {
-            writer.write(passenger.toJson() + System.lineSeparator());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String addPassengerSubmit(@ModelAttribute TrainTicketTracker passenger) {
+        passengerService.addPassenger(passenger); // save to DB
         return "redirect:/tickets/all";
     }
 }
