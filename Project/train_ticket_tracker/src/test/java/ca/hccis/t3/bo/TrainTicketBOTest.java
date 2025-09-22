@@ -1,0 +1,45 @@
+package ca.hccis.t3.bo;
+
+import ca.hccis.t3.jpa.entity.TrainTicket;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+class TrainTicketBOTest {
+
+    @Test
+    void calculateBusPassCost_1length_nonRural_regularType() {
+
+        TrainTicket busPass = new TrainTicket();
+        busPass.setLengthOfPass(1);
+        busPass.setValidForRuralRoute(false);
+        busPass.setPassType(3); //regular
+        double actual = TrainTicketBO.calculateBusPassCost(busPass);
+        double expected = 1.0;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void calculateBusPassCost_21_length_nonRural_regularType() {
+
+        TrainTicket busPass = new TrainTicket();
+        busPass.setLengthOfPass(21);
+        busPass.setValidForRuralRoute(false);
+        busPass.setPassType(3); //regular
+        double actual = TrainTicketBO.calculateBusPassCost(busPass);
+        double expected = 20.50;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void calculateBusPassCost_20_length_nonRural_regularType() {
+
+        TrainTicket busPass = new TrainTicket();
+        busPass.setLengthOfPass(20);
+        busPass.setValidForRuralRoute(false);
+        busPass.setPassType(3); //regular
+        double actual = TrainTicketBO.calculateBusPassCost(busPass);
+        double expected = 20;
+        Assertions.assertEquals(expected, actual);
+    }
+
+}

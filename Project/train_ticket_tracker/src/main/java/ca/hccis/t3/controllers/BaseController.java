@@ -1,42 +1,58 @@
 package ca.hccis.t3.controllers;
 
-import ca.hccis.t3.entity.TrainTicketTracker;
-import ca.hccis.t3.service.PassengerService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import ca.hccis.t3.bo.TrainTicketBO;
+import ca.hccis.t3.repositories.CodeValueRepository;
+import ca.hccis.t3.util.CisUtility;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Base controller which control general functionality in the app.
+ *
+ * @since 20220624
+ * @author BJM
+ */
 @Controller
 public class BaseController {
 
-    private final PassengerService passengerService;
+    private final CodeValueRepository _cvr;
 
-    public BaseController(PassengerService passengerService) {
-        this.passengerService = passengerService;
+    @Autowired
+    public BaseController(CodeValueRepository cvr) {
+        _cvr = cvr;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "index"; // menu page
+    /**
+     * Send the user to the welcome view
+     *
+     * @since 20220624
+     * @author BJM
+     */
+    @RequestMapping("/")
+    public String home(HttpSession session) {
+
+
+        //BJM 20200602 Issue#1 Set the current date in the session
+        String currentDate = CisUtility.getCurrentDate("yyyy-MM-dd");
+        session.setAttribute("currentDate", currentDate);
+
+        TrainTicketBO.setTicketTypes(_cvr, session);
+
+        return "index";
     }
 
-    @GetMapping("/add")
-    public String showAddForm(Model model) {
-        model.addAttribute("passenger", new TrainTicketTracker());
-        return "add"; // form page
-    }
-
-    @PostMapping("/add")
-    public String addPassenger(TrainTicketTracker passenger) {
-        passengerService.addPassenger(passenger);
-        return "redirect:/show"; // will go to the list of all passengers
-    }
-
-
-    @GetMapping("/show")
-    public String showPassengers(Model model) {
-        model.addAttribute("passengers", passengerService.getAllPassengers());
-        return "show"; // display page
+    /**
+     * Send the user to the about view.
+     *
+     * @since 20220624
+     * @author BJM
+     */
+    @RequestMapping("/about")
+    public String about() {
+        return "other/about";
     }
 }
