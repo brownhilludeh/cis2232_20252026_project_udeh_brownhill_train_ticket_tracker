@@ -1,5 +1,6 @@
 package ca.hccis.t3;
 
+import ca.hccis.t3.entity.TrainTicketTracker;
 import ca.hccis.t3.util.CisUtility;
 import com.google.gson.Gson;
 
@@ -13,10 +14,10 @@ import java.util.List;
 
 public class Controller {
 
-    public static final int EXIT = 0;
+    public static final String EXIT = "X";
 
-    public static final String MENU = "1) Add passenger's data" + System.lineSeparator()
-            + "2) Show passenger's information" + System.lineSeparator()
+    public static final String MENU = "A) Add passenger's data" + System.lineSeparator()
+            + "V) View passenger's information" + System.lineSeparator()
             + EXIT + ") Exit" + System.lineSeparator();
 
     public static final String MESSAGE_ERROR = "Error";
@@ -49,18 +50,18 @@ public class Controller {
             throw new RuntimeException(e);
         }
 
-        int menuOption;
+        String menuOption;
         do {
-            menuOption = CisUtility.getInputInt(MENU);
+            menuOption = CisUtility.getInputString(MENU).toUpperCase();
 
             switch (menuOption) {
                 case EXIT:
                     System.out.println(MESSAGE_EXIT);
                     break;
-                case 1:
+                case "A":
                     processAdd();
                     break;
-                case 2:
+                case "V":
                     processShow();
                     break;
                 default:
@@ -79,7 +80,7 @@ public class Controller {
      * Add passenger data and save to file
      */
     public static void processAdd() {
-        System.out.println("Processing option 1");
+        System.out.println("Processing option A");
 
         TrainTicketTracker passenger = new TrainTicketTracker();
         passenger.getInformation();
@@ -98,7 +99,7 @@ public class Controller {
      * Read all passenger data from file and display
      */
     public static void processShow() {
-        System.out.println("Processing option 2");
+        System.out.println("Processing option V");
         Gson gson = new Gson();
 
         try {
