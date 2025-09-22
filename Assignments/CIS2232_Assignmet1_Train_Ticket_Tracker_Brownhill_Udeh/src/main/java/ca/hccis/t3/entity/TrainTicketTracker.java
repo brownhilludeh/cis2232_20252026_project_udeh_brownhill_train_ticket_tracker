@@ -1,4 +1,4 @@
-package ca.hccis.t3;
+package ca.hccis.t3.entity;
 
 import ca.hccis.t3.util.CisUtility;
 import com.google.gson.Gson;
