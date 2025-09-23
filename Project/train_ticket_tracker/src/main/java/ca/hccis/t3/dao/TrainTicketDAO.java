@@ -4,7 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import ca.hccis.t3.jpa.entity.TrainTicket;
+=======
+import ca.hccis.t3.jpa.entity.BusPass;
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +46,7 @@ public class TrainTicketDAO {
      * @since 20210924
      * @author BJM
      */
+<<<<<<< HEAD
     public ArrayList<TrainTicket> selectAll() {
         ArrayList<TrainTicket> passes = null;
         Statement stmt = null;
@@ -63,10 +68,34 @@ public class TrainTicketDAO {
             // ******************************************************************
             // Loop through the result set using the next method.
             // ******************************************************************
+=======
+    public ArrayList<BusPass> selectAll() {
+        ArrayList<BusPass> passes = null;
+        Statement stmt = null;
+
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which 
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This 
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from BusPass;");
+
+            //******************************************************************
+            //Loop through the result set using the next method.  
+            //******************************************************************
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             passes = new ArrayList();
 
             while (rs.next()) {
 
+<<<<<<< HEAD
                 TrainTicket ticket = new TrainTicket();
                 ticket.setId(rs.getInt(1));
                 ticket.setName(rs.getString("name"));
@@ -77,6 +106,16 @@ public class TrainTicketDAO {
                 ticket.setTravelLength(rs.getInt("travelLength"));
 
                 passes.add(ticket);
+=======
+                BusPass busPass = new BusPass();
+                busPass.setId(rs.getInt(1));
+                busPass.setName(rs.getString("name"));
+                busPass.setAddress(rs.getString("address"));
+                busPass.setCity(rs.getString("city"));
+                busPass.setLengthOfPass(rs.getInt("lengthOfPass"));
+
+                passes.add(busPass);
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             }
 
         } catch (SQLException e) {
@@ -100,6 +139,7 @@ public class TrainTicketDAO {
      * @since 20241010
      * @author BJM
      */
+<<<<<<< HEAD
     public ArrayList<TrainTicket> selectAllByDateRange(String start, String end) {
         ArrayList<TrainTicket> passes = null;
         Statement stmt = null;
@@ -125,10 +165,38 @@ public class TrainTicketDAO {
             // ******************************************************************
             // Loop through the result set using the next method.
             // ******************************************************************
+=======
+    public ArrayList<BusPass> selectAllByDateRange(String start, String end) {
+        ArrayList<BusPass> passes = null;
+        Statement stmt = null;
+
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            String sqlStatement = "select * from BusPass " +
+                    "where startDate >= '"+start
+                    +"' and startDate <= '"+end+"';";
+
+            rs = stmt.executeQuery(sqlStatement);
+
+            //******************************************************************
+            //Loop through the result set using the next method.
+            //******************************************************************
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             passes = new ArrayList();
 
             while (rs.next()) {
 
+<<<<<<< HEAD
                 TrainTicket ticket = new TrainTicket();
                 ticket.setId(rs.getInt(1));
                 ticket.setName(rs.getString("name"));
@@ -139,6 +207,16 @@ public class TrainTicketDAO {
                 ticket.setTravelLength(rs.getInt("travelLength"));
 
                 passes.add(ticket);
+=======
+                BusPass busPass = new BusPass();
+                busPass.setId(rs.getInt(1));
+                busPass.setName(rs.getString("name"));
+                busPass.setAddress(rs.getString("address"));
+                busPass.setCity(rs.getString("city"));
+                busPass.setLengthOfPass(rs.getInt("lengthOfPass"));
+
+                passes.add(busPass);
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             }
 
         } catch (SQLException e) {
@@ -162,6 +240,7 @@ public class TrainTicketDAO {
      * @since 20241011
      * @author BJM
      */
+<<<<<<< HEAD
     public ArrayList<TrainTicket> selectAllWithMinLength(int minLength) throws SQLException {
         ArrayList<TrainTicket> passes = null;
         Statement stmt = null;
@@ -184,10 +263,35 @@ public class TrainTicketDAO {
             // ******************************************************************
             // Loop through the result set using the next method.
             // ******************************************************************
+=======
+    public ArrayList<BusPass> selectAllWithMinLength(int minLength) throws SQLException {
+        ArrayList<BusPass> passes = null;
+        Statement stmt = null;
+
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from BusPass " +
+                    "where lengthOfPass >= "+minLength+";");
+
+            //******************************************************************
+            //Loop through the result set using the next method.
+            //******************************************************************
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             passes = new ArrayList();
 
             while (rs.next()) {
 
+<<<<<<< HEAD
                 TrainTicket ticket = new TrainTicket();
                 ticket.setId(rs.getInt(1));
                 ticket.setName(rs.getString("name"));
@@ -198,6 +302,16 @@ public class TrainTicketDAO {
                 ticket.setTravelLength(rs.getInt("travelLength"));
 
                 passes.add(ticket);
+=======
+                BusPass busPass = new BusPass();
+                busPass.setId(rs.getInt(1));
+                busPass.setName(rs.getString("name"));
+                busPass.setAddress(rs.getString("address"));
+                busPass.setCity(rs.getString("city"));
+                busPass.setLengthOfPass(rs.getInt("lengthOfPass"));
+
+                passes.add(busPass);
+>>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
             }
 
         } catch (SQLException e) {
