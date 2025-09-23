@@ -1,54 +1,47 @@
-DROP DATABASE IF EXISTS cis2232_train_ticket;
-CREATE DATABASE cis2232_squash_skills;
-use cis2232_train_ticket;
+-- Drop existing database if it exists
+DROP DATABASE IF EXISTS cis2232_train_ticket_tracker;
 
---------------------------------------------------------------------------------
--- Note the table below to hold data associated with your project.  Expect one
--- table with 7-9 fields.
---------------------------------------------------------------------------------
+-- Create a new database
+CREATE DATABASE cis2232_train_ticket_tracker;
+USE cis2232_train_ticket_tracker;
 
-CREATE TABLE SkillsAssessmentSquashTechnical
-(
-    id                int(5),
-    assessmentDate    varchar(10) NOT NULL COMMENT 'yyyy-MM-dd',
-    createdDateTime   varchar(20) NOT NULL COMMENT 'yyyy-MM-dd hh:mm:ss',
-    athleteName       varchar(50) NOT NULL COMMENT 'Athletes name',
-    assessorName      varchar(50) NOT NULL COMMENT 'Athletes name',
-    forehandDrives    int(5) COMMENT 'Number of forehand drives',
-    backhandDrives    int(5) COMMENT 'Number of backhand drives',
-    forehandVolleyMax int(5) COMMENT 'Max number of forehand volleys',
-    forehandVolleySum int(5) COMMENT 'Sum of forehand volleys',
-    backhandVolleyMax int(5) COMMENT 'Max number of backhand volleys',
-    backhandVolleySum int(5) COMMENT 'Sum of backhand volleys',
-    technicalScore    int(5) COMMENT 'Score calculated at submission'
-) COMMENT 'This table holds technical skills assessment details';
+-- Create the Ticket table
+CREATE TABLE ticket (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        name VARCHAR(100) NOT NULL,
+                        issueDate DATE NOT NULL,
+                        station VARCHAR(50) NOT NULL,
+                        departureTime TIME NOT NULL,
+                        destination VARCHAR(50) NOT NULL,
+                        travelLength INT NOT NULL,
+                        ticketPrice DECIMAL(8,2) NOT NULL,
+                        isStudent BOOLEAN DEFAULT 0,
+                        isFrequent BOOLEAN DEFAULT 0,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
-ALTER TABLE SkillsAssessmentSquashTechnical
-    ADD PRIMARY KEY (id);
-ALTER TABLE SkillsAssessmentSquashTechnical
-    MODIFY id int(4) NOT NULL AUTO_INCREMENT COMMENT 'This is the primary key',
-    AUTO_INCREMENT = 1;
-
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-22',	'2022-08-20 11:35:15','Maria Smith','BJ MacLean',		11,	5,	14,	78,	6,	59,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-11',	'2022-08-11 11:35:15','Rhonda Jones','BJ MacLean',		5,	7,	4,	36,	5,	38,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-07', '2022-08-07 11:35:15','Chad Collins','BJ MacLean',		8,	8,	4,	37,	5,	42,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-07', '2022-08-07 11:35:15','Rhonda Jones','BJ MacLean',		12,	8,	9,	53,	4,	42,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-07', '2022-08-05 11:35:15','Chad Collins','BJ MacLean',		8,	10,	7,	52,	3,	26,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-08',	'2022-08-08 11:35:15','Rhonda Jones','BJ MacLean',		10,	8,	8,	61,	6,	57,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-10',	'2022-08-10 11:35:15','Chad Collins','BJ MacLean',		17,	14,	8,	70,	13,	84,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-08',	'2022-08-08 11:35:15','Maria Smith','BJ MacLean',		17,	18,	12,	77,	8,	63,0);
--- insert into SkillsAssessmentSquashTechnical values(0, '2022-08-22',	'2022-08-20 11:35:15','Chad Collins','BJ MacLean',		14,	11,	10,	86,	16,	87,0);
-
-INSERT INTO SkillsAssessmentSquashTechnical (id, assessmentDate, createdDateTime, athleteName, assessorName,
-                                             forehandDrives, backhandDrives, forehandVolleyMax, forehandVolleySum,
-                                             backhandVolleyMax, backhandVolleySum, technicalScore)
-VALUES (1, '2022-08-22', '2023-11-07 01:38:48', 'Maria Smith', 'BJ MacLean', 11, 5, 14, 78, 6, 59, 1085),
-       (2, '2022-08-11', '2023-11-07 01:38:52', 'Rhonda Jones', 'BJ MacLean', 5, 7, 4, 36, 5, 38, 622),
-       (3, '2022-08-07', '2023-11-07 01:38:56', 'Chad Collins', 'BJ MacLean', 8, 8, 4, 37, 5, 42, 707),
-       (4, '2022-08-07', '2023-11-07 01:38:59', 'Rhonda Jones', 'BJ MacLean', 12, 8, 9, 53, 4, 42, 879),
-       (5, '2022-08-07', '2023-11-07 01:39:01', 'Chad Collins', 'BJ MacLean', 8, 10, 7, 52, 3, 26, 740),
-       (6, '2022-08-08', '2023-11-07 01:39:04', 'Rhonda Jones', 'BJ MacLean', 10, 8, 8, 61, 6, 57, 972),
-       (7, '2022-08-10', '2023-11-07 01:39:07', 'Chad Collins', 'BJ MacLean', 17, 14, 8, 70, 13, 84, 1403),
-       (8, '2022-08-08', '2023-11-07 01:39:10', 'Maria Smith', 'BJ MacLean', 17, 18, 12, 77, 8, 63, 1385),
-       (9, '2022-08-22', '2023-11-07 01:38:44', 'Chad Collins', 'BJ MacLean', 14, 11, 10, 86, 16, 87, 1448);
-
+-- Insert sample data
+INSERT INTO ticket
+(name, issueDate, station, departureTime, destination, travelLength, ticketPrice, studentIndicator, frequentRiderIndicator)
+VALUES
+    ('John Doe', '2025-09-20', 'Charlottetown', '08:30:00', 'Stratford', 20, 100.00, 1, 0),
+    ('Mary Smith', '2025-09-21', 'Summerside', '14:15:00', 'Charlottetown', 45, 225.00, 0, 1),
+    ('Alex Brown', '2025-09-22', 'Cornwall', '09:00:00', 'Charlottetown', 10, 50.00, 1, 1),
+    ('Sophia Johnson', '2025-09-23', 'Charlottetown', '07:45:00', 'Summerside', 60, 300.00, 0, 0),
+    ('Liam Wilson', '2025-09-24', 'Stratford', '16:30:00', 'Charlottetown', 15, 75.00, 1, 0),
+    ('Emma Davis', '2025-09-25', 'Cornwall', '18:00:00', 'Stratford', 12, 60.00, 0, 0),
+    ('James Miller', '2025-09-26', 'Charlottetown', '10:15:00', 'Cornwall', 8, 40.00, 1, 1),
+    ('Olivia Garcia', '2025-09-27', 'Summerside', '12:00:00', 'Charlottetown', 55, 275.00, 0, 1),
+    ('Benjamin Lee', '2025-09-28', 'Charlottetown', '06:50:00', 'Summerside', 65, 325.00, 1, 0),
+    ('Mia Martinez', '2025-09-29', 'Stratford', '19:30:00', 'Cornwall', 18, 90.00, 0, 0),
+    ('Ethan Clark', '2025-09-30', 'Cornwall', '08:20:00', 'Charlottetown', 14, 70.00, 1, 0),
+    ('Charlotte Lewis', '2025-10-01', 'Charlottetown', '13:40:00', 'Stratford', 22, 110.00, 0, 0),
+    ('Henry Walker', '2025-10-02', 'Summerside', '17:15:00', 'Cornwall', 48, 240.00, 0, 1),
+    ('Amelia Hall', '2025-10-03', 'Charlottetown', '09:10:00', 'Summerside', 62, 310.00, 1, 1),
+    ('Lucas Allen', '2025-10-04', 'Stratford', '07:30:00', 'Cornwall', 19, 95.00, 0, 0),
+    ('Isabella Young', '2025-10-05', 'Cornwall', '11:00:00', 'Charlottetown', 13, 65.00, 1, 0),
+    ('Mason Hernandez', '2025-10-06', 'Charlottetown', '15:25:00', 'Summerside', 50, 250.00, 0, 0),
+    ('Ava King', '2025-10-07', 'Summerside', '06:45:00', 'Charlottetown', 70, 350.00, 1, 1),
+    ('William Scott', '2025-10-08', 'Cornwall', '10:50:00', 'Stratford', 16, 80.00, 0, 0),
+    ('Emily Adams', '2025-10-09', 'Charlottetown', '08:05:00', 'Cornwall', 9, 45.00, 0, 0);
