@@ -1,11 +1,7 @@
 package ca.hccis.t3.bo;
 
 import ca.hccis.t3.dao.TrainTicketDAO;
-<<<<<<< HEAD
 import ca.hccis.t3.jpa.entity.TrainTicket;
-=======
-import ca.hccis.t3.jpa.entity.BusPass;
->>>>>>> 2605daf5da24552d95991c268ac8b80512ead69e
 import ca.hccis.t3.jpa.entity.CodeValue;
 import ca.hccis.t3.repositories.CodeValueRepository;
 import ca.hccis.t3.util.CisUtility;
