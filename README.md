@@ -11,7 +11,7 @@ Quality Control:  Hunter
 ---
 ## Description ##
 This project will allow the tracking of **train tickets**.  
-It records details such as the customerâ€™s name, when the ticket was issued, station of departure, time of departure, travel length, and destination.  
+It records details such as the customer’s name, when the ticket was issued, station of departure, time of departure, travel length, and destination.  
 The application also calculates the ticket price based on travel distance and applies discounts depending on whether the passenger is a student or a frequent rider.    <br/><br/>
 
 ---
@@ -19,6 +19,11 @@ The application also calculates the ticket price based on travel distance and ap
 Main Color: #003366 (dark blue) <br/>
 Secondary Color: #f2f2f2 (light grey) <br/>
 Accent Color: #ff9900 (orange) <br/>
+    --main-color-light: #eff1f8;
+    --main-color-primary: black ;
+    --main-color-dark: #050379;
+    --main-color-text: #ffffff;
+    --main-color-bright:#01002e;
 
 
 ---
