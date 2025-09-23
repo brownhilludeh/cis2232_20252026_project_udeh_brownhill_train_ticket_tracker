@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author 2232
  * @since 20241114
  */
-@Path("/ticketService/ticketes")
+@Path("/ticketService/tickets")
 public class TrainTicketService
 {
     private final TrainTicketRepository _bpr;
@@ -42,14 +42,14 @@ public class TrainTicketService
     @Produces("application/json")
     public Response getAll()
     {
-        ArrayList<TrainTicket> ticketes = (ArrayList<TrainTicket>) _bpr.findAll();
+        ArrayList<TrainTicket> tickets = (ArrayList<TrainTicket>) _bpr.findAll();
 
-        if (ticketes == null || ticketes.isEmpty()) {
+        if (tickets == null || tickets.isEmpty()) {
             return Response.status(204).build();
         } else {
             return Response
                     .status(200)
-                    .entity(ticketes).build();
+                    .entity(tickets).build();
         }
     }
 
@@ -81,7 +81,7 @@ public class TrainTicketService
     @GET
     @Path("/{id}")
     @Produces("application/json")
-    public Response getticketesById(@PathParam("id") Integer id) throws URISyntaxException
+    public Response getTicketsById(@PathParam("id") Integer id) throws URISyntaxException
     {
         Optional<TrainTicket> ticket = _bpr.findById(id);
          if (!ticket.isPresent()) {

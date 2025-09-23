@@ -20,7 +20,7 @@ label {
 }</style>
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <div class="container has-text-centered">
-    <h2 class="title is-2" th:text="#{label.report.bus.pass.min.length}">_</h2>
+    <h2 class="title is-2" th:text="#{label.report.ticket.min.length}">_</h2>
     <form th:action="@{/report/buspass/minlength/submit}" method="post" class="wbb"
           style="display:inline-block;text-align:left!important">
         <label>Min Length: </label>
