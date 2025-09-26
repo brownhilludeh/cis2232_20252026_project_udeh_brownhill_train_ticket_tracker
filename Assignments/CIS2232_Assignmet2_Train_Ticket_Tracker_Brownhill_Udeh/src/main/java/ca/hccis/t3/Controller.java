@@ -30,25 +30,28 @@ public class Controller {
 
     public static void main(String[] args) {
 
-        dataPath = Paths.get(PATH + FILE_NAME);
+        dataPath = Paths.get(PATH, FILE_NAME);
 
-        // Create file if it doesn't exist
-        if (!Files.exists(dataPath)) {
-            try {
-                new File(dataPath.toString()).createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating file");
-                throw new RuntimeException(e);
-            }
-        }
-
-        //try catch
         try {
-            dataWriter = new FileWriter(dataPath.toString(), true);
+            // Ensure parent directories exist
+            Files.createDirectories(dataPath.getParent());
+
+            // Create file if it doesn't exist
+            if (Files.notExists(dataPath)) {
+                Files.createFile(dataPath);
+                System.out.println("New File created: " + dataPath.toAbsolutePath());
+            } else {
+                System.out.println("File already exists: " + dataPath.toAbsolutePath());
+            }
+
+            // Open writer (append mode)
+            dataWriter = new FileWriter(dataPath.toFile(), true);
+
         } catch (IOException e) {
-            System.out.println("Error creating file writer");
+            System.out.println("Error setting up file: " + e.getMessage());
             throw new RuntimeException(e);
         }
+
 
         String menuOption;
         do {
@@ -67,7 +70,7 @@ public class Controller {
                 default:
                     System.out.println(MESSAGE_ERROR);
             }
-        } while (menuOption != EXIT);
+        } while (!menuOption.equals(EXIT));
 
         try {
             dataWriter.close();
