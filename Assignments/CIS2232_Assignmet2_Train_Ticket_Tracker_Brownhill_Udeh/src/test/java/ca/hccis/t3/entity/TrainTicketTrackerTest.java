@@ -1,7 +1,6 @@
 package ca.hccis.t3.entity;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrainTicketTrackerTest {
@@ -9,7 +8,7 @@ class TrainTicketTrackerTest {
     @Test
     void testNoDiscount() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(100);
+        ticket.setTravelLength(20); // base = 20 * 5 = 100
         ticket.setStudent(false);
         ticket.setFrequent(false);
 
@@ -19,39 +18,39 @@ class TrainTicketTrackerTest {
     @Test
     void testStudentDiscountOnly() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(100);
+        ticket.setTravelLength(20); // base = 100
         ticket.setStudent(true);
         ticket.setFrequent(false);
 
-        assertEquals(90, ticket.calculateTicketPrice()); // 10% off
+        assertEquals(80, ticket.calculateTicketPrice()); // 20% off
     }
 
     @Test
     void testFrequentDiscountOnly() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(200);
+        ticket.setTravelLength(40); // base = 200
         ticket.setStudent(false);
         ticket.setFrequent(true);
 
-        assertEquals(190, ticket.calculateTicketPrice()); // 5% off
+        assertEquals(170, ticket.calculateTicketPrice()); // 15% off
     }
 
     @Test
     void testBothDiscounts() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(200);
+        ticket.setTravelLength(40); // base = 200
         ticket.setStudent(true);
         ticket.setFrequent(true);
 
-        // Step 1: 200 - 10% = 180
-        // Step 2: 180 - 5% = 171
-        assertEquals(171, ticket.calculateTicketPrice());
+        // Step 1: 200 - 20% = 160
+        // Step 2: 160 - 15% = 136
+        assertEquals(136, ticket.calculateTicketPrice());
     }
 
     @Test
-    void testZeroPrice() {
+    void testZeroTravelLength() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(0);
+        ticket.setTravelLength(0); // base = 0
         ticket.setStudent(true);
         ticket.setFrequent(true);
 
@@ -59,52 +58,51 @@ class TrainTicketTrackerTest {
     }
 
     @Test
-    void testNegativePriceThrowsException() {
+    void testNegativeTicketPriceThrowsException() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(-50);
-
+        ticket.setTicketPrice(-50); // direct override
         assertThrows(IllegalArgumentException.class, ticket::calculateTicketPrice);
     }
 
     @Test
-    void testLargePriceNoDiscount() {
+    void testLargeTravelLengthNoDiscount() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(1_000_000);
+        ticket.setTravelLength(200_000); // base = 1_000_000
         ticket.setStudent(false);
         ticket.setFrequent(false);
 
         int result = ticket.calculateTicketPrice();
         assertEquals(1_000_000, result);
-        assertTrue(result > 0); 
+        assertTrue(result > 0);
     }
 
     @Test
-    void testLargePriceWithDiscounts() {
+    void testLargeTravelLengthWithDiscounts() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(1_000_000);
+        ticket.setTravelLength(200_000); // base = 1_000_000
         ticket.setStudent(true);
         ticket.setFrequent(true);
 
-        assertEquals(855_000, ticket.calculateTicketPrice());
+        assertEquals(680_000, ticket.calculateTicketPrice()); // 20% then 15% off
     }
 
     @Test
     void testRoundingDown() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(101);
-        ticket.setStudent(true); // 10% → 90.9
+        ticket.setTravelLength(21); // base = 105
+        ticket.setStudent(true); // 105 - 20% = 84
         ticket.setFrequent(false);
 
-        assertEquals(91, ticket.calculateTicketPrice()); // rounds up
+        assertEquals(84, ticket.calculateTicketPrice());
     }
 
     @Test
     void testRoundingWithBothDiscounts() {
         TrainTicketTracker ticket = new TrainTicketTracker();
-        ticket.setTicketPrice(105);
-        ticket.setStudent(true); // 105 - 10% = 94.5
-        ticket.setFrequent(true); // 94.5 - 5% = 89.775 → rounds to 90
+        ticket.setTravelLength(21); // base = 105
+        ticket.setStudent(true); // 105 - 20% = 84
+        ticket.setFrequent(true); // 84 - 15% = 71.4 → rounds to 71
 
-        assertEquals(90, ticket.calculateTicketPrice());
+        assertEquals(71, ticket.calculateTicketPrice());
     }
 }
