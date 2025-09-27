@@ -16,48 +16,107 @@ public class TrainTicketTracker {
     private boolean isStudent;
     private boolean isFrequent;
 
+    // ***************************************************************************
+    // Will use a CisUtility object that can be set to use either console or gui.
+    // Note if it is transient, it will not be encoded in the json strings.
+    // ***************************************************************************
+    private transient CisUtility cisUtility = new CisUtility();
+
+    public TrainTicketTracker(CisUtility cisUtility) {
+        this.cisUtility = cisUtility;
+    }
+
+    public TrainTicketTracker() {
+        //TODO Auto-generated constructor stub
+    }
+
     /**
      * Prompt the user to enter passenger information
      */
     public void getInformation() {
-        this.name = CisUtility.getInputString("Enter passenger's name: ");
-        this.dateIssued = CisUtility.getInputString("Enter date issued: ");
-        this.station = CisUtility.getInputString("Enter station: ");
-        this.departureTime = CisUtility.getInputString("Enter departure time: ");
-        this.destination = CisUtility.getInputString("Enter destination: ");
-        this.travelLength = CisUtility.getInputInt("Enter travel length: ");
-        this.ticketPrice = CisUtility.getInputInt("Enter ticket price: ");
-        this.isFrequent = CisUtility.getInputBoolean("Is the passenger a frequent traveler? ");
-        this.isStudent = CisUtility.getInputBoolean("Is the passenger a student? ");
+        this.name = cisUtility.getInputString("Enter passenger's name: ");
+        this.dateIssued = cisUtility.getInputString("Enter date issued: ");
+        this.station = cisUtility.getInputString("Enter station: ");
+        this.departureTime = cisUtility.getInputString("Enter departure time: ");
+        this.destination = cisUtility.getInputString("Enter destination: ");
+        this.travelLength = cisUtility.getInputInt("Enter travel length: ");
+        this.ticketPrice = cisUtility.getInputInt("Enter ticket price: ");
+        this.isFrequent = cisUtility.getInputBoolean("Is the passenger a frequent traveler? ");
+        this.isStudent = cisUtility.getInputBoolean("Is the passenger a student? ");
     }
 
     // Getters and Setters
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getDateIssued() { return dateIssued; }
-    public void setDateIssued(String dateIssued) { this.dateIssued = dateIssued; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getStation() { return station; }
-    public void setStation(String station) { this.station = station; }
+    public String getDateIssued() {
+        return dateIssued;
+    }
 
-    public String getDepartureTime() { return departureTime; }
-    public void setDepartureTime(String departureTime) { this.departureTime = departureTime; }
+    public void setDateIssued(String dateIssued) {
+        this.dateIssued = dateIssued;
+    }
 
-    public String getDestination() { return destination; }
-    public void setDestination(String destination) { this.destination = destination; }
+    public String getStation() {
+        return station;
+    }
 
-    public int getTravelLength() { return travelLength; }
-    public void setTravelLength(int travelLength) { this.travelLength = travelLength; }
+    public void setStation(String station) {
+        this.station = station;
+    }
 
-    public int getTicketPrice() { return ticketPrice; }
-    public void setTicketPrice(int ticketPrice) { this.ticketPrice = ticketPrice; }
+    public String getDepartureTime() {
+        return departureTime;
+    }
 
-    public boolean isStudent() { return isStudent; }
-    public void setStudent(boolean student) { this.isStudent = student; }
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
 
-    public boolean isFrequent() { return isFrequent; }
-    public void setFrequent(boolean frequent) { this.isFrequent = frequent; }
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public int getTravelLength() {
+        return travelLength;
+    }
+
+    public void setTravelLength(int travelLength) {
+        this.travelLength = travelLength;
+    }
+
+    public int getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(int ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public boolean isStudent() {
+        return isStudent;
+    }
+
+    public void setStudent(boolean student) {
+        this.isStudent = student;
+    }
+
+    public boolean isFrequent() {
+        return isFrequent;
+    }
+
+    public void setFrequent(boolean frequent) {
+        this.isFrequent = frequent;
+    }
 
     /**
      * Convert this object to JSON string
