@@ -27,7 +27,7 @@ public class TrainTicketTracker {
     }
 
     public TrainTicketTracker() {
-        //TODO Auto-generated constructor stub
+        //Empty constructor
     }
 
     /**
@@ -40,9 +40,10 @@ public class TrainTicketTracker {
         this.departureTime = cisUtility.getInputString("Enter departure time: ");
         this.destination = cisUtility.getInputString("Enter destination: ");
         this.travelLength = cisUtility.getInputInt("Enter travel length: ");
-        this.ticketPrice = cisUtility.getInputInt("Enter ticket price: ");
         this.isFrequent = cisUtility.getInputBoolean("Is the passenger a frequent traveler? ");
         this.isStudent = cisUtility.getInputBoolean("Is the passenger a student? ");
+
+        this.ticketPrice = calculateTicketPrice();
     }
 
     // Getters and Setters
@@ -132,23 +133,27 @@ public class TrainTicketTracker {
      * @throws IllegalArgumentException if base ticket price is negative
      */
     public int calculateTicketPrice() {
+
+        int finalPrice = travelLength * 5;
+
         if (ticketPrice < 0) {
             throw new IllegalArgumentException("Ticket price cannot be negative");
         }
 
-        double finalPrice = ticketPrice;
+        // double finalPrice = ticketPrice;
 
-        // Apply student discount (10%)
+        // Apply student discount (20%)
         if (isStudent) {
-            finalPrice -= (finalPrice * 0.10);
+            finalPrice -= (finalPrice * 0.20);
         }
 
-        // Apply frequent traveler discount (5%)
+        // Apply frequent  discount (15%)
         if (isFrequent) {
-            finalPrice -= (finalPrice * 0.05);
+            finalPrice -= (finalPrice * 0.15);
         }
 
-        return (int) Math.round(finalPrice); // round to nearest whole number since my BA (Ryley) said so.
+        this.ticketPrice = (int) Math.round(finalPrice); // round to nearest whole number since my BA (Ryley) said so.
+        return this.ticketPrice;
     }
 
     /**
@@ -162,9 +167,9 @@ public class TrainTicketTracker {
                 + "\nDeparture Time: " + departureTime
                 + "\nDestination: " + destination
                 + "\nTravel Length: " + travelLength
-                + "\nTicket Price: " + ticketPrice
                 + "\nStudent: " + isStudent
-                + "\nFrequent Traveler: " + isFrequent;
+                + "\nFrequent Traveler: " + isFrequent
+                + "\nTicket Price: " + ticketPrice;
     }
 
     /**

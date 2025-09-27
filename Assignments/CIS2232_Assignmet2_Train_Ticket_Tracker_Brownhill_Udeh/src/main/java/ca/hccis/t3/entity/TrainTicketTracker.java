@@ -26,9 +26,11 @@ public class TrainTicketTracker {
         this.departureTime = CisUtility.getInputString("Enter departure time: ");
         this.destination = CisUtility.getInputString("Enter destination: ");
         this.travelLength = CisUtility.getInputInt("Enter travel length: ");
-        this.ticketPrice = CisUtility.getInputInt("Enter ticket price: ");
         this.isFrequent = CisUtility.getInputBoolean("Is the passenger a frequent traveler? ");
         this.isStudent = CisUtility.getInputBoolean("Is the passenger a student? ");
+
+        this.ticketPrice = calculateTicketPrice();
+
     }
 
     // Getters and Setters
@@ -73,23 +75,27 @@ public class TrainTicketTracker {
      * @throws IllegalArgumentException if base ticket price is negative
      */
     public int calculateTicketPrice() {
+
+        double finalPrice = travelLength * 5;
+
         if (ticketPrice < 0) {
             throw new IllegalArgumentException("Ticket price cannot be negative");
         }
 
-        double finalPrice = ticketPrice;
+        // double finalPrice = ticketPrice;
 
-        // Apply student discount (10%)
+        // Apply student discount (20%)
         if (isStudent) {
-            finalPrice -= (finalPrice * 0.10);
+            finalPrice -= (finalPrice * 0.20);
         }
 
-        // Apply frequent traveler discount (5%)
+        // Apply frequent  discount (15%)
         if (isFrequent) {
-            finalPrice -= (finalPrice * 0.05);
+            finalPrice -= (finalPrice * 0.15);
         }
 
-        return (int) Math.round(finalPrice); // round to nearest whole number since my BA (Ryley) said so.
+        this.ticketPrice = (int) Math.round(finalPrice); // round to nearest whole number since my BA (Ryley) said so.
+        return this.ticketPrice;
     }
 
     /**
