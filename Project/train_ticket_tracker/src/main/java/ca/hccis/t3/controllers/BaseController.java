@@ -40,7 +40,7 @@ public class BaseController {
         String currentDate = CisUtility.getCurrentDate("yyyy-MM-dd");
         session.setAttribute("currentDate", currentDate);
 
-        TrainTicketBO.setTicketTypes(_cvr, session);
+//        TrainTicketBO.setTicketTypes(_cvr, session);
 
         return "index";
     }

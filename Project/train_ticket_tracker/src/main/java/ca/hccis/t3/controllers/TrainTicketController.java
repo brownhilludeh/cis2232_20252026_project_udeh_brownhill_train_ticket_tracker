@@ -84,8 +84,8 @@ public class TrainTicketController {
     @RequestMapping("/add")
     public String add(Model model, HttpSession session) {
 
-        TrainTicketBO.setTicketTypes(_cvr, session);
-        TrainTicketBO.setTicketTypes(_cvr, session);
+//        TrainTicketBO.setTicketTypes(_cvr, session);
+//        TrainTicketBO.setTicketTypes(_cvr, session);
         TrainTicket ticket = new TrainTicket();
         TrainTicketBO.setTicketDefaults(ticket);
         model.addAttribute("ticket", ticket);
@@ -103,7 +103,7 @@ public class TrainTicketController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model, HttpSession session) {
 
-        TrainTicketBO.setTicketTypes(_cvr, session);
+//        TrainTicketBO.setTicketTypes(_cvr, session);
 
         Optional ticket = _bpr.findById(id);
         if (ticket.isPresent()) {

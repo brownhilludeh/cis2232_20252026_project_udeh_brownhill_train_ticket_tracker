@@ -2,7 +2,7 @@ package ca.hccis.t3.bo;
 
 import ca.hccis.t3.dao.TrainTicketDAO;
 import ca.hccis.t3.jpa.entity.TrainTicket;
-import ca.hccis.t3.jpa.entity.CodeValue;
+//import ca.hccis.t3.jpa.entity.CodeValue;
 import ca.hccis.t3.repositories.CodeValueRepository;
 import ca.hccis.t3.util.CisUtilityFile;
 
@@ -53,11 +53,11 @@ public class TrainTicketBO {
     public static double calculateTicketPrice(TrainTicket ticket) {
         double ticketPrice = 5 * ticket.getTravelLength();
 
-        if (ticket.isStudent()) {
+        if (ticket.getIsStudent()) {
             ticketPrice *= 0.8;
         }
 
-        if (ticket.isFrequent()) {
+        if (ticket.getIsFrequent()) {
             ticketPrice *= 0.85;
         }
 
@@ -76,12 +76,12 @@ public class TrainTicketBO {
         ticket.setIssueDate(java.time.LocalDate.now().toString());
     }
 
-    public static void setTicketTypes(CodeValueRepository _cvr, HttpSession session) {
-        List<CodeValue> ticketTypes = (List) session.getAttribute("ticketTypes");
-        if (ticketTypes == null) {
-            ticketTypes = _cvr.findByCodeTypeId(2);
-            session.setAttribute("ticketTypes", ticketTypes);
-        }
-    }
+//    public static void setTicketTypes(CodeValueRepository _cvr, HttpSession session) {
+//        List<CodeValue> ticketTypes = (List) session.getAttribute("ticketTypes");
+//        if (ticketTypes == null) {
+//            ticketTypes = _cvr.findByCodeTypeId(2);
+//            session.setAttribute("ticketTypes", ticketTypes);
+//        }
+//    }
 
 }
