@@ -6,7 +6,7 @@ CREATE DATABASE cis2232_train_ticket_tracker;
 USE cis2232_train_ticket_tracker;
 
 -- Create the Ticket table
-CREATE TABLE ticket (
+CREATE TABLE Ticket (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         name VARCHAR(100) NOT NULL,
                         issueDate DATE NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE ticket (
 );
 
 -- Insert sample data
-INSERT INTO ticket
+INSERT INTO Ticket
 (name, issueDate, station, departureTime, destination, travelLength, ticketPrice, studentIndicator, frequentRiderIndicator)
 VALUES
     ('John Doe', '2025-09-20', 'Charlottetown', '08:30:00', 'Stratford', 20, 100.00, 1, 0),
