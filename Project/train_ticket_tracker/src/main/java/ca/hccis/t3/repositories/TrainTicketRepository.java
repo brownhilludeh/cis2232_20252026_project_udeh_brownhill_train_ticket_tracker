@@ -20,4 +20,6 @@ public interface TrainTicketRepository extends CrudRepository<TrainTicket, Integ
     //https://www.baeldung.com/spring-jpa-like-queries
     List<TrainTicket> findByNameContaining(String name);
 
+    // Find tickets where travelLength is between min and max
+    List<TrainTicket> findByTravelLengthBetween(Integer minLength, Integer maxLength);
 }

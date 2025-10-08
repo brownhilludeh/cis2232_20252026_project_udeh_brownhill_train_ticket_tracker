@@ -24,11 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path("/ticketService/tickets")
 public class TrainTicketService
 {
-    private final TrainTicketRepository _bpr;
+    private final TrainTicketRepository _t3r;
     
     @Autowired
-    public TrainTicketService(TrainTicketRepository bpr){
-        this._bpr = bpr;
+    public TrainTicketService(TrainTicketRepository t3r){
+        this._t3r = t3r;
     }
     
     /**
@@ -42,7 +42,7 @@ public class TrainTicketService
     @Produces("application/json")
     public Response getAll()
     {
-        ArrayList<TrainTicket> tickets = (ArrayList<TrainTicket>) _bpr.findAll();
+        ArrayList<TrainTicket> tickets = (ArrayList<TrainTicket>) _t3r.findAll();
 
         if (tickets == null || tickets.isEmpty()) {
             return Response.status(204).build();
@@ -58,11 +58,11 @@ public class TrainTicketService
     public Response delete(@PathParam("id") int id){
 
         try {
-            Optional<TrainTicket> ticket = _bpr.findById(Integer.valueOf(id));
+            Optional<TrainTicket> ticket = _t3r.findById(Integer.valueOf(id));
             if (ticket==null) {
                 return Response.status(204).build();
             }else{
-                _bpr.delete(ticket.get());
+                _t3r.delete(ticket.get());
             }
         }catch (Exception e) {
             return Response.status(HttpURLConnection.HTTP_NOT_ACCEPTABLE).entity(e.getMessage()).build();
@@ -83,7 +83,7 @@ public class TrainTicketService
     @Produces("application/json")
     public Response getTicketsById(@PathParam("id") Integer id) throws URISyntaxException
     {
-        Optional<TrainTicket> ticket = _bpr.findById(id);
+        Optional<TrainTicket> ticket = _t3r.findById(id);
          if (!ticket.isPresent()) {
             return Response.status(204).build();
         } else {
@@ -162,7 +162,7 @@ public class TrainTicketService
             ticket.setId(0);
         }
         TrainTicketBO.calculateTicketPrice(ticket);
-        ticket = _bpr.save(ticket);
+        ticket = _t3r.save(ticket);
 
         String temp = "";
         temp = gson.toJson(ticket);

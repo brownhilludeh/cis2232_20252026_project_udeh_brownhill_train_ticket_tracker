@@ -5,7 +5,8 @@
 <nav th:fragment="navbar" class="navbar nav" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a th:href="@{/}" class="vert-align">
-            <img src="/images/ic_launcher.png" class="logo"></span>
+            <img src="/images/t3-logo.png" class="logo image-fluid"></span>
+            <h2 class="text-white">Train Ticket Tracker</h2>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" id="burg"
@@ -19,9 +20,9 @@
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
-                <a th:href="@{/buspass}" href="/buspass" class=" navbar-link">Assessments</a>
+                <a th:href="@{/trainticket}" href="/trainticket" class=" navbar-link">Assessments</a>
                 <div class="navbar-dropdown">
-                    <a th:href="@{/buspass}" class="navbar-item">View</a>
+                    <a th:href="@{/trainticket}" class="navbar-item">View</a>
                     <hr class="navbar-divider">
                 </div>
             </div>
@@ -29,12 +30,30 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a th:href="@{/report}" href="/about" class=" navbar-link">Reports</a>
                     <div class="navbar-dropdown">
-                        <a th:href="@{/report/buspass/daterange}" class="navbar-item"
-                           th:text="#{label.report.bus.pass.date.range}">Date Range</a>
-                        <a th:href="@{/report/buspass/minlength}" class="navbar-item"
-                           th:text="#{label.report.bus.pass.min.length}">Min Pass Length</a>
+                        <!-- Issued Date Range Report -->
+                        <a th:href="@{/report/ticket/date-range}" 
+                        class="navbar-item"
+                        th:text="#{label.report.ticket.date.range}">
+                        Issued Date Range
+                        </a>
+
+                        <!-- Travel Length Range Report -->
+                        <a th:href="@{/report/ticket/length-range}" 
+                        class="navbar-item"
+                        th:text="#{label.report.ticket.length.range}">
+                        Travel Length Range
+                        </a>
+
+                        <!-- (Optional) Ticket Type Report - Placeholder for future use -->
+                        <a th:href="@{/report/ticket/type}" 
+                        class="navbar-item"
+                        th:text="#{label.report.ticket.type}">
+                        Ticket Type
+                        </a>
+
                         <hr class="navbar-divider">
                     </div>
+
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item has-dropdown is-hoverable">

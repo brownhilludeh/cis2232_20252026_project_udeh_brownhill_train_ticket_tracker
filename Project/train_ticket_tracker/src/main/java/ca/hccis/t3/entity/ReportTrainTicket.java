@@ -4,6 +4,8 @@ import ca.hccis.t3.jpa.entity.TrainTicket;
 
 import java.util.ArrayList;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 /**
  * Entity class to hold the attributes of the bus pass related reports.
  * 
@@ -11,6 +13,9 @@ import java.util.ArrayList;
  * @since 20241010
  */
 public class ReportTrainTicket {
+    private Integer minLength;
+    private Integer maxLength;
+
     private String issuedDate;
     private String station;
     private String departureTime;
@@ -18,6 +23,24 @@ public class ReportTrainTicket {
     private int ticketPrice;
 
     private ArrayList<TrainTicket> tickets;
+
+
+    
+    public void setMinLength(Integer minLength) {
+        this.minLength = minLength;
+    }
+
+    public void setMaxLength(Integer maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public Integer getMinLength() {
+        return minLength;
+    }
+
+    public Integer getMaxLength() {
+        return maxLength;
+    }
 
     public String getIssuedDate() {
         return issuedDate;
