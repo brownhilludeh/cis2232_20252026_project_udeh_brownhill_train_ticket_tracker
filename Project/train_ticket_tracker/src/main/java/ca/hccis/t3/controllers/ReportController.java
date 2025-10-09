@@ -3,17 +3,20 @@ package ca.hccis.t3.controllers;
 import ca.hccis.t3.bo.TrainTicketBO;
 import ca.hccis.t3.entity.ReportTrainTicket;
 import ca.hccis.t3.jpa.entity.TrainTicket;
+import ca.hccis.t3.service.TrainTicketService;
 import ca.hccis.t3.util.CisUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
 * Controller to administer reports of the project.
@@ -28,6 +31,11 @@ public class ReportController {
     
    private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
+    private final TrainTicketService service;
+
+    public ReportController(TrainTicketService service) {
+        this.service = service;
+    }
    /**
     * Send the user to list of reports view.
     *
@@ -52,12 +60,30 @@ public class ReportController {
     * @author Brownhill U
     * @since 2025-10-10
     */
-    @RequestMapping("/ticket/travel-length")
+    @RequestMapping("/ticket/travel-range")
     public String reportTicketTravelLength(Model model, HttpSession session) {
-    //    ReportTrainTicket reportTrainTicket = new ReportTrainTicket();
-        // reportTrainTicket.setTravelLength(0);
+        model.addAttribute("reportInput", new ReportTrainTicket());
         return "report/reportTravelRangeIndex";
     }
+
+
+    @PostMapping("/ticket/travel-range")
+    public String reportTravelRangeSubmit(@ModelAttribute("reportInput") ReportTrainTicket reportInput, Model model) {
+        int minLength = reportInput.getMinLength();
+        int maxLength = reportInput.getMaxLength();
+
+        List<TrainTicket> tickets = service.getTicketsByLengthRange(minLength, maxLength);
+
+        if (tickets.isEmpty()) {
+            model.addAttribute("message", "No tickets found in this range");
+        } else {
+            reportInput.setTickets(tickets);
+            model.addAttribute("reportInput", reportInput);
+        }
+
+        return "report/reportTravelRangeView";
+    }
+
 
    /**
     * Method to send user to the date range report.
@@ -67,55 +93,55 @@ public class ReportController {
     * @author BJM
     * @since 2024-10-10
     */
-   @RequestMapping("/ticket/date-range")
-   public String reportTicketDateRange(Model model, HttpSession session) {
+//    @RequestMapping("/ticket/date-range")
+//    public String reportTicketDateRange(Model model, HttpSession session) {
 
-       String currentDate = CisUtility.getCurrentDate("yyyy-MM-dd");
-       session.setAttribute("currentDate", currentDate);
+//        String currentDate = CisUtility.getCurrentDate("yyyy-MM-dd");
+//        session.setAttribute("currentDate", currentDate);
 
-       String start = CisUtility.getCurrentDate(-30, "yyyy-MM-dd");
-       String end = CisUtility.getCurrentDate(+30, "yyyy-MM-dd");
+//        String start = CisUtility.getCurrentDate(-30, "yyyy-MM-dd");
+//        String end = CisUtility.getCurrentDate(+30, "yyyy-MM-dd");
 
-       ReportTrainTicket reportTrainTicket = new ReportTrainTicket();
-       //Set the default start/end dates for the report
-       reportTrainTicket.setIssuedDate(start);
-       reportTrainTicket.setIssuedDate(end);
+//        ReportTrainTicket reportTrainTicket = new ReportTrainTicket();
+//        //Set the default start/end dates for the report
+//        reportTrainTicket.setIssuedDate(start);
+//        reportTrainTicket.setIssuedDate(end);
 
-       model.addAttribute("reportInput", reportTrainTicket);
+//        model.addAttribute("reportInput", reportTrainTicket);
 
-    //    return "report/reportTrainTicketValidRange";
-       return "report/reportTicketDateRange";
-   }
+//     //    return "report/reportTrainTicketValidRange";
+//        return "report/reportTicketDateRange";
+//    }
 
-   /**
-    * Process the report
-    *
-    * @param model
-    * @param reportTrainTicket Object containing inputs for the report
-    * @return view to show report
-    * @author BJM
-    * @since 2024-10-10
-    */
-   @RequestMapping("/ticket/validRange/submit")
-   public String reportTicketDateRangeSubmit(Model model, @ModelAttribute("reportInput") ReportTrainTicket reportTrainTicket) {
+//    /**
+//     * Process the report
+//     *
+//     * @param model
+//     * @param reportTrainTicket Object containing inputs for the report
+//     * @return view to show report
+//     * @author BJM
+//     * @since 2024-10-10
+//     */
+//    @RequestMapping("/ticket/validRange/submit")
+//    public String reportTicketDateRangeSubmit(Model model, @ModelAttribute("reportInput") ReportTrainTicket reportTrainTicket) {
 
-       //Call BO method to process the report
-       ArrayList<TrainTicket> tickets = TrainTicketBO.processDateRangeReport(reportTrainTicket.getIssuedDate(), reportTrainTicket.getDepartureTime());
+//        //Call BO method to process the report
+//        ArrayList<TrainTicket> tickets = TrainTicketBO.processDateRangeReport(reportTrainTicket.getIssuedDate(), reportTrainTicket.getDepartureTime());
 
-       //Put the list in the Java object
-       reportTrainTicket.setTickets(tickets);
+//        //Put the list in the Java object
+//        reportTrainTicket.setTickets(tickets);
 
-       //Add a message in case the report does not contain any data
-       if (tickets != null && tickets.isEmpty()) {
-           model.addAttribute("message", "No data found");
-           System.out.println("Brownhill - no data found");
-       }
+//        //Add a message in case the report does not contain any data
+//        if (tickets != null && tickets.isEmpty()) {
+//            model.addAttribute("message", "No data found");
+//            System.out.println("Brownhill - no data found");
+//        }
 
-       //Put object in model so it can be used on the view (html)
-      model.addAttribute("reportInput", reportTrainTicket);
+//        //Put object in model so it can be used on the view (html)
+//       model.addAttribute("reportInput", reportTrainTicket);
 
-       return "report/reportTrainTicketDateRange";
-   }
+//        return "report/reportTrainTicketDateRange";
+//    }
 
 //    /**
 //     * Method to send user to the min length report.

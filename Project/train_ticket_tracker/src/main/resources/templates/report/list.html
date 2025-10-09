@@ -18,7 +18,7 @@
                 padding-bottom:8px
             }
             tr:nth-child(even){
-                background-color: #FFF
+                background-color: #f1f1ff
             }
             .a{
                 padding:0 32px 0 0
@@ -30,13 +30,13 @@
             <br></br>
             <table class="wbb centered" style="padding:0!important;display:inline-block!important">
                 <tr>
-                    <td><a th:href="@{/report/trainticket/daterange}" th:text="#{label.report.ticket.date.range}" >Date Range</a></td>
+                    <td><a th:href="@{/report/ticket/date-range}" th:text="#{label.report.ticket.date.range}" >Date Range</a></td>
                     <td></td>
-                </tr><!-- comment -->
+                </tr>
                 <tr>
-                    <td><a th:href="@{/report/trainticket/minlength}"th:text="#{label.report.ticket.min.length}" >Min Pass Length</a></td>
+                    <td><a th:href="@{/report/ticket/travel-range}"th:text="#{label.report.ticket.length.range}" >Travel Length Range</a></td>
                     <td></td>
-                </tr><!-- comment -->
+                </tr>
             </table>
         </div>
         <footer th:replace="fragments/footer :: footer"></footer>

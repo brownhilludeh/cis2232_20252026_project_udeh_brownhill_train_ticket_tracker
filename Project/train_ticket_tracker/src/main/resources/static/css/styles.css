@@ -107,9 +107,13 @@ table{
     background: var(--main-color-dark)
 }
 
-.navbar-brand>a, .navbar-brand h2{
+.navbar-brand h2{
     color: var(--main-color-text);
-    text-decoration: none !important;
+}
+
+.navbar-dropdown {
+    color: var(--main-color-dark);
+
 }
 
 .ftr {

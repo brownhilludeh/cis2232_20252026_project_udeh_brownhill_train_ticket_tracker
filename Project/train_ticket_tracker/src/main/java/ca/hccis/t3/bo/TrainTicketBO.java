@@ -24,12 +24,12 @@ public class TrainTicketBO {
         return tickets;
     }
 
-    public static ArrayList<TrainTicket> processMinLengthReport(int minLength) throws SQLException {
+    public static ArrayList<TrainTicket> processTravelLengthReport(int minLength, Integer integer) throws SQLException {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         ArrayList<TrainTicket> tickets = null;
 
         try {
-            tickets = trainTicketDAO.selectAllWithMinLength(minLength);
+            tickets = trainTicketDAO.selectAllWithTravelLength(minLength);
         } catch (SQLException e) {
             throw e;
         }

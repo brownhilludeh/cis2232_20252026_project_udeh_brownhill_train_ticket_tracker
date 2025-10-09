@@ -30,24 +30,19 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a th:href="@{/report}" href="/about" class=" navbar-link">Reports</a>
                     <div class="navbar-dropdown">
+
                         <!-- Issued Date Range Report -->
-                        <a th:href="@{/report/ticket/date-range}" 
-                        class="navbar-item"
-                        th:text="#{label.report.ticket.date.range}">
-                        Issued Date Range
+                        <a th:href="@{/report/ticket/date-range}" class="navbar-item" th:text="#{label.report.ticket.date.range}">
+                            Issued Date Range!
                         </a>
 
                         <!-- Travel Length Range Report -->
-                        <a th:href="@{/report/ticket/length-range}" 
-                        class="navbar-item"
-                        th:text="#{label.report.ticket.length.range}">
+                        <a th:href="@{/report/ticket/travel-range}" class="navbar-item" th:text="#{label.report.ticket.length.range}">
                         Travel Length Range
                         </a>
 
-                        <!-- (Optional) Ticket Type Report - Placeholder for future use -->
-                        <a th:href="@{/report/ticket/type}" 
-                        class="navbar-item"
-                        th:text="#{label.report.ticket.type}">
+                        <!-- Ticket Type Report -  -->
+                        <a th:href="@{/report/ticket/type}" class="navbar-item" th:text="#{label.report.ticket.type}">
                         Ticket Type
                         </a>
 

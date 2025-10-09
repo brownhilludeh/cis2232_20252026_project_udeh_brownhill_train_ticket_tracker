@@ -162,7 +162,7 @@ public class TrainTicketDAO {
      * @since 20241011
      * @author BJM
      */
-    public ArrayList<TrainTicket> selectAllWithMinLength(int minLength) throws SQLException {
+    public ArrayList<TrainTicket> selectAllWithTravelLength(int minLength) throws SQLException {
         ArrayList<TrainTicket> passes = null;
         Statement stmt = null;
 

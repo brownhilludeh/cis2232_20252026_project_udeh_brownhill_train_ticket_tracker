@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1></h1>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/head :: head">
+    <title>Travel Length Report</title>
+  </head>
+  <body>
+    <nav th:replace="fragments/navHeader :: navbar"></nav>
+
+    <div class="container">
+      <div class="row p-4">
+        <div class="col-md-12 col-6 p-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="has-text-centered" style="padding: 2rem 2%">
+                <h2 class="title is-2">Travel Length Report</h2>
+
+                <p>Search for tickets by travel length range</p>
+                <hr />
+                <form
+                  th:action="@{/report/ticket/travel-range}"
+                  th:object="${reportInput}"
+                  method="post"
+                  style="display: inline-block; text-align: left !important"
+                >
+                  <label>Minimum Length (km): </label>
+                  <input type="number" th:field="*{minLength}" required />
+                  <br /><br />
+
+                  <label>Maximum Length (km): </label>
+                  <input type="number" th:field="*{maxLength}" required />
+                  <br /><br />
+
+                  <button
+                    type="submit"
+                    style="display: block; margin-top: 16px !important"
+                  >
+                    Generate Report
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+  </body>
 </html>

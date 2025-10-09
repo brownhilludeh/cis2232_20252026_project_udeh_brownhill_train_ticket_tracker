@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -169,6 +170,11 @@ public class TrainTicketService
 
         return temp;
 
+    }
+
+    public List<TrainTicket> getTicketsByLengthRange(Integer minLength, Integer maxLength) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTicketsByLengthRange'");
     }
     
 }
