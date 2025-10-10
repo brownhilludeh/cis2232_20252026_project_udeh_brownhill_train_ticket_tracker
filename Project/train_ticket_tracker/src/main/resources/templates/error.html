@@ -1,13 +1,33 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:include="fragments/head :: headerFragment">
-        <title id="pageTitle">From head.html</title>
-    </head>
-    <body>
-    <nav th:replace="fragments/navHeader :: navbar"></nav>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment('Error Page')">
+    <title>Error Page</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-..." crossorigin="anonymous">
+</head>
+<body>
+<!-- Navbar -->
+<nav th:replace="fragments/navHeader :: navbar" class="navbar navbar-expand-lg navbar-dark bg-dark"></nav>
 
-    <div class="container">
-        <h2 class="title is-2"><span th:text=#{label.error}></span></h2>
+<!-- Main container -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="alert alert-danger" role="alert">
+                <h2 th:text="#{label.error}">An error occurred!</h2>
+                <p class="lead">Please try again or contact support.</p>
+                <a href="/" class="btn btn-primary mt-3">Go to Home</a>
+            </div>
+        </div>
     </div>
-    <footer th:replace="fragments/footer :: footer"></footer>
-    </body>
+</div>
+
+<!-- Footer -->
+<footer th:replace="fragments/footer :: footer" class="bg-light text-center py-4 mt-auto"></footer>
+
+<!-- Bootstrap JS bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-..." crossorigin="anonymous"></script>
+</body>
 </html>

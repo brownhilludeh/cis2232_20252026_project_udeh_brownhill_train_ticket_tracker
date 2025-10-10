@@ -22,4 +22,7 @@ public interface TrainTicketRepository extends CrudRepository<TrainTicket, Integ
 
     // Find tickets where travelLength is between min and max
     List<TrainTicket> findByTravelLengthBetween(Integer minLength, Integer maxLength);
+
+    // Find tickets where issuedDate is between start and end
+    List<TrainTicket> findByIssueDateBetween(String start, String end);
 }

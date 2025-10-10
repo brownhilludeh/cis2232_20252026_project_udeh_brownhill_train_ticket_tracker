@@ -25,5 +25,9 @@ public class TrainTicketService {
     public List<TrainTicket> getTicketsByLengthRange(int minLength, int maxLength) {
         return repository.findByTravelLengthBetween(minLength, maxLength);
     }
+
+    public List<TrainTicket> getTicketsByDateRange(String startDate, String endDate) {
+        return repository.findByIssueDateBetween(startDate, endDate);
+    }
 }
 

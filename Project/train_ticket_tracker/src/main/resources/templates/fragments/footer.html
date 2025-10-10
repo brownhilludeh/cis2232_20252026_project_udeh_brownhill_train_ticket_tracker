@@ -1,14 +1,14 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-    <body>
-    <footer th:fragment="footer" class="footer ftr">
-        <div>
-            <div class="content has-text-centered">
-                <!-- BJM 20200602 Issue#1-->
-                <span th:text="${#calendars.format(#calendars.createNow(), 'MMM yyyy dd  ')}"></span>&nbsp;&nbsp;<span th:text="#{label.business.name}">label business name</span>
-            </div>
-        </div>
-    </footer>
-    </body>
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Footer Fragment -->
+<footer th:fragment="footer" class="footer bg-dark text-white py-3">
+    <div class="container text-center">
+        <!-- Current Date and Business Name -->
+        <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></span>
+        &nbsp;|&nbsp;
+        <span th:text="#{label.business.name}">Business Name</span>
+    </div>
+</footer>
+</body>
 </html>

@@ -7,6 +7,8 @@ public class ReportTrainTicket {
 
     private Integer minLength;
     private Integer maxLength;
+    private String startDate;
+    private String endDate;
 
     // Add this
     private List<TrainTicket> tickets;
@@ -35,4 +37,21 @@ public class ReportTrainTicket {
     public void setTickets(List<TrainTicket> tickets) {
         this.tickets = tickets;
     }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
 }

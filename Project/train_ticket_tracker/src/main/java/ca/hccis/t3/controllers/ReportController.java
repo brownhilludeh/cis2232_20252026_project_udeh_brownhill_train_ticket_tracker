@@ -84,15 +84,40 @@ public class ReportController {
         return "report/reportTravelRangeView";
     }
 
+    @RequestMapping("/ticket/date-range")
+    public String reportTicketDateRange(Model model) {
+        model.addAttribute("reportInput", new ReportTrainTicket());
+        return "report/reportDateRangeIndex";
+    }
 
-   /**
-    * Method to send user to the date range report.
-    *
-    * @param model
-    * @return view for list
-    * @author BJM
-    * @since 2024-10-10
-    */
+    // Handle form submission
+    @PostMapping("/ticket/date-range")
+    public String reportTicketDateRangeSubmit(@ModelAttribute("reportInput") ReportTrainTicket reportInput,
+                                              Model model) {
+        String startDate = reportInput.getStartDate();
+        String  endDate = reportInput.getEndDate();
+
+        List<TrainTicket> tickets = service.getTicketsByDateRange(startDate, endDate);
+
+        if (tickets.isEmpty()) {
+            model.addAttribute("message", "No tickets found in this range");
+        } else {
+            reportInput.setTickets(tickets);
+            model.addAttribute("reportInput", reportInput);
+        }
+
+        return "report/reportDateRangeView"; // make sure this html exists
+    }
+
+
+    /**
+     * Method to send user to the date range report.
+     *
+     * @param model
+     * @return view for list
+     * @author BJM
+     * @since 2024-10-10
+     */
 //    @RequestMapping("/ticket/date-range")
 //    public String reportTicketDateRange(Model model, HttpSession session) {
 

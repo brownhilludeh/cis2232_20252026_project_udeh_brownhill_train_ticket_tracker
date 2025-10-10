@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/head :: head">
-    <title>Travel Length Report</title>
-  </head>
-  <body>
-    <nav th:replace="fragments/navHeader :: navbar"></nav>
+<head th:replace="fragments/head :: headerFragment('Travel Length Report')"></head>
+<body>
 
-    <div class="container">
-      <div class="row p-4">
-        <div class="col-md-12 col-6 p-3">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <div class="has-text-centered" style="padding: 2rem 2%">
-                <h2 class="title is-2">Travel Length Report</h2>
+<!-- Navbar -->
+<div th:replace="fragments/navHeader :: navbar"></div>
 
-                <p>Search for tickets by travel length range</p>
-                <hr />
-                <form
-                  th:action="@{/report/ticket/travel-range}"
-                  th:object="${reportInput}"
-                  method="post"
-                  style="display: inline-block; text-align: left !important"
-                >
-                  <label>Minimum Length (km): </label>
-                  <input type="number" th:field="*{minLength}" required />
-                  <br /><br />
+<!-- Main Container -->
+<div class="container my-5">
 
-                  <label>Maximum Length (km): </label>
-                  <input type="number" th:field="*{maxLength}" required />
-                  <br /><br />
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-12">
 
-                  <button
-                    type="submit"
-                    style="display: block; margin-top: 16px !important"
-                  >
-                    Generate Report
-                  </button>
-                </form>
-              </div>
+            <!-- Card -->
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+
+                    <!-- Title -->
+                    <h2 class="h2 mb-3">Travel Length Report</h2>
+                    <p class="mb-4">Search for tickets by travel length range</p>
+                    <hr />
+
+                    <!-- Form -->
+                    <form th:action="@{/report/ticket/travel-range}" th:object="${reportInput}" method="post" class="text-start">
+
+                        <div class="mb-3">
+                            <label for="minLength" class="form-label">Minimum Length (km):</label>
+                            <input type="number" th:field="*{minLength}" id="minLength" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="maxLength" class="form-label">Maximum Length (km):</label>
+                            <input type="number" th:field="*{maxLength}" id="maxLength" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Generate Report</button>
+                    </form>
+
+                </div>
             </div>
-          </div>
+
         </div>
-      </div>
     </div>
 
-    <footer th:replace="fragments/footer :: footer"></footer>
-  </body>
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

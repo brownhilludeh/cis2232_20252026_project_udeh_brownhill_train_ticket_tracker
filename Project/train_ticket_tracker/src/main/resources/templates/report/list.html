@@ -1,44 +1,45 @@
 <!DOCTYPE html>
-
-<!--Thanks to Ferhad, Francisco, and Carter from grad 2022 for the styling on this page.-->
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/head :: head">
-        <title id="pageTitle" th:text="${session.title}">Reports</title>
-    </head>
-    <body>
-        <style scoped="scoped">th,tr,td{
-                text-align:left!important
-            }
-            td{
-                padding:0!important
-            }
-            tr th{
-                line-height:1;
-                padding-bottom:8px
-            }
-            tr:nth-child(even){
-                background-color: #f1f1ff
-            }
-            .a{
-                padding:0 32px 0 0
-            }</style>
-        <!--^This is illegal. However, th:replace doesn't allow custom styling. This CSS is needed.^-->
-        <nav th:replace="fragments/navHeader :: navbar"></nav>
-        <div class="container has-text-centered">
-            <h2 class="title is-2" style="margin-bottom:-10px!important">Reports</h2>
-            <br></br>
-            <table class="wbb centered" style="padding:0!important;display:inline-block!important">
-                <tr>
-                    <td><a th:href="@{/report/ticket/date-range}" th:text="#{label.report.ticket.date.range}" >Date Range</a></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><a th:href="@{/report/ticket/travel-range}"th:text="#{label.report.ticket.length.range}" >Travel Length Range</a></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-        <footer th:replace="fragments/footer :: footer"></footer>
-    </body>
+<head th:replace="fragments/head :: headerFragment('Reports')"></head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="fragments/navHeader :: navbar"></div>
+
+<!-- Main Container -->
+<div class="container text-center mt-5">
+
+    <!-- Page Title -->
+    <h2 class="h2 mb-4">Reports</h2>
+
+    <!-- Reports Table -->
+    <div class="table-responsive d-inline-block">
+        <table class="table table-bordered table-striped w-auto">
+            <tbody>
+            <tr>
+                <td>
+                    <a th:href="@{/report/ticket/date-range}" class="text-decoration-none">
+                        <span th:text="#{label.report.ticket.date.range}">Date Range</span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a th:href="@{/report/ticket/travel-range}" class="text-decoration-none">
+                        <span th:text="#{label.report.ticket.length.range}">Travel Length Range</span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

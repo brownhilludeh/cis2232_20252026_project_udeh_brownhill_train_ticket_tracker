@@ -1,330 +1,393 @@
-html{
-    overflow: auto !important;
-    min-width:246px;
+/* ========================================
+   Global Defaults & Resets
+======================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+html {
+    overflow: auto !important;
+    min-width: 246px;
 }
 
 :root {
-    /*Variable for team color*/
-    /*light ac3e37 main 770711 dark 470000*/
     --main-color-light: #eff1f8;
-    --main-color-primary: black ;
-    --main-color-dark: #050379;
+    --main-color-primary: #050379;
+    --main-color-dark: #040343;
     --main-color-text: #ffffff;
-    --main-color-bright:#01002e;
-
+    --main-color-bright: #d9d9fb;
 }
 
-/*input:not(.hidden){
-    display:inline-block;
-    float:right
-}*/
-.cd{
-    color:#F00!important;
-/*    font-weight:bold;*/
-/*    margin-bottom:-48px*/
-}
-label{
-    margin-right:8px
-}
 
-/*Make body height 100% so that footer stays at the bottom and position relative to the footer*/
+/* ========================================
+   Base Styles
+======================================== */
 body {
     position: relative;
-    height: 100%;
     min-height: 100vh;
     background: var(--main-color-light);
+    color: #000 !important;
 }
 
-th,tr,td{
-    text-align:left;
-}
-td{
-    padding:0!important
-}
-tr th{
-    line-height:1;
-    padding-bottom:8px
-}
-tr:nth-child(even){
-    background-color: #FFF
-}
-.a{
-    padding:0 32px 0 0
-}
-h2{
-    /*    margin-bottom:-10px!important*/
-}
-table{
-    padding:0!important;
-    display:inline-block!important
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--main-color-dark) !important;
 }
 
-.logo{
-    height: 40px
+/* ========================================
+   Navbar
+======================================== */
+nav{
+    width: 100%;
 }
-.no-link {
-    color: inherit
-}
-
-.no-link:hover {
-    text-decoration: none;
-    color: inherit
-}
-
-.table-title {
-    display: flex;
-    justify-content: space-between
-}
-
-/*TODO:merge this with centered instead.*/
-.table-container {
-    margin: 0 auto
-}
-
-.field-id {
-    width: 20px;
-    display: none
-}
-
-.flex-sp-btw {
-    display: flex;
-    /*TODO: find way to tell NetBeans to ignore this.*/
-    justify-content: space-evenly;
-}
-
-.nav-flex {
-    display: flex;
-    justify-content: space-between
-}
-
-.links > a {
-    margin-right: 24px
-}
-
-.nav {
-    margin-bottom: 50px;
-    background: var(--main-color-dark)
-}
-
-.navbar-brand h2{
+.navbar {
+    background-color: var(--main-color-primary) !important;
+    padding: 0.5rem 1rem;
     color: var(--main-color-text);
 }
 
-.navbar-dropdown {
-    color: var(--main-color-dark);
-
-}
-
-.ftr {
-    margin-top: 50px;
-    padding: 20px;
-    background: var(--main-color-dark);
-    color: var(--main-color-text);
-    bottom: 0;
-    /*    position:absolute;*/
-    width:100%
-}
-
-.vert-align {
-    display: flex;
-    align-items: center
-}
-.centered{
-    margin: 0 auto
-}
-
-/*drop down link*/
-.ddl{
-    margin:0 8px 0 8px;
-    font-size:28px
-}
-
-/*.centered is a lie.*/
-.centered2{
-    text-align:center
-}
-
-/*reason why this ain't up there is because i want him to see it
-TODO: change to html instead of using root.*/
-/*:root{
-    background-color:var(--main-color-light);
-}*/
-
-/*blue on blisque is ugly.*/
-.navbar-link:not(.is-arrowless)::after{
-    border-color:var(--main-color-primary) !important;
-}
-
-/*better constrast, otherwise you can't see anything on a bad monitor.'*/
-.navbar-link,.navbar-link:focus,.navbar-bgn{
-    color: var(--main-color-text) !important
-}
-
-.title{
-    color: var(--main-color-bright) !important
-}
-
-
-/*better constrast, otherwise you can't see anything on a bad monitor.'*/
-body,p,strong,th{
-    color: #000 !important
-}
-
-
-/*overriding the hover*/
-.navbar-link:hover{
-    /*    background-color: #fff !important*/
-    /*    background-color: var(--main-color-primary) !important;*/
-    color: var(--main-color-dark)!important;
-}
-
-.navbar-link:active{
-    /*    background-color: #fff !important*/
-    /*    background-color: var(--main-color-primary) !important;*/
-    color: var(--main-color-dark)!important;
-}
-
-.navbar-item:hover{
-    /*    background-color: var(--main-color-primary) !important;*/
-}
-
-/*overriding the hover*/
-.navbar-item:visited{
+.navbar a.nav-link,
+.navbar a.navbar-brand h2 {
     color: var(--main-color-text) !important;
-    /*    background-color: var(--main-color-primary);*/
 }
 
-
-/*fixes weird issue with the index button.*/
-.navbar-bgn{
-    padding:1rem 1rem
+.navbar a.nav-link:hover,
+.navbar a.nav-link:focus {
+    color: var(--main-color-bright) !important;
 }
 
-.navbar-bgn:focus{
-    /*    background-color:var(--main-color-light);*/
+/* ==============================
+   Navbar Brand & Logo
+============================== */
+/*.navbar-brand {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 0.5rem; !* space between logo and text *!*/
+/*}*/
+
+.navbar-brand .logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
 }
 
-.navbar-bgn:hover{
-    /*    background-color:var(--main-color-light);*/
+/*.navbar-brand h2 {*/
+/*    margin: 0;*/
+/*    font-size: 1.25rem;*/
+/*    color: var(--main-color-text);*/
+/*}*/
+
+/*label {*/
+/*    margin-right: 8px;*/
+/*}*/
+
+/*th, tr, td {*/
+/*    text-align: left;*/
+/*}*/
+
+/*td {*/
+/*    padding: 0 !important;*/
+/*}*/
+
+/*tr th {*/
+/*    line-height: 1;*/
+/*    padding-bottom: 8px;*/
+/*}*/
+
+/*tr:nth-child(even) {*/
+/*    background-color: #fff;*/
+/*}*/
+
+/*h2 {*/
+/*    !* add heading overrides here if needed *!*/
+/*}*/
+
+/*a.no-link {*/
+/*    color: inherit;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*a.no-link:hover {*/
+/*    color: inherit;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/* ========================================
+   Button
+======================================== */
+.btn-primary{
+    background-color: var(--main-color-primary) !important;
+    border-color: var(--main-color-primary) !important;
 }
 
-/*this gives me a headache*/
-@media (max-width:1023px){
-    .navbar-bgn{
-        padding:1rem .75rem !important
-    }
+/*!* ========================================*/
+/*   Tables*/
+/*======================================== *!*/
+/*.table-container {*/
+/*    margin: 0 auto;*/
+/*}*/
 
-    /*instead of the hamburger button taking up all the space, just force it to
-    live with the object on the left.*/
-    .navbar-brand{
-        right:0;
-        position:absolute;
-        z-index:1
-    }
+/*.tableStyles {*/
+/*    padding: 0;*/
+/*    background: #ccc;*/
+/*    display: inline-block;*/
+/*    border: 8px #ccc solid;*/
+/*    border-collapse: collapse;*/
+/*    border-radius: 12px;*/
+/*    white-space: nowrap;*/
+/*}*/
 
-    /*not perfect, but definitively better than before where the text would just
-    appear below it...*/
-    #navbarBasicExample{
-        width:100%;
-        position:absolute
-    }
+/*.tableStyles tr:nth-child(odd) {*/
+/*    background-color: #fff;*/
+/*}*/
 
-    /*align arrows with hamburger button.*/
-    .navbar-link:not(.is-arrowless)::after{
-        margin-right: 3.15px
-    }
-    /*window size compatibility*/
-    .ddl{
-        display:inline-block;
-        margin-top:16px !important
-    }
-    .nav{
-        margin-bottom:16px !important
-    }
-    .navbar-menu.is-active{
-        padding:0
-    }
-    .navbar-index{
-        padding-bottom:0.86rem;
-        padding-top:0.86rem;
-        margin-right:52px
-    }
+/*.tableStyles th,*/
+/*.tableStyles td {*/
+/*    padding-right: 45px;*/
+/*}*/
+
+/*.tableStyles th:first-child,*/
+/*.tableStyles td:first-child {*/
+/*    padding-left: 10px;*/
+/*}*/
+
+/*.tableStyles th:last-child,*/
+/*.tableStyles td:last-child {*/
+/*    padding-right: 10px;*/
+/*}*/
+
+/*!* ==============================*/
+/*   Navbar Toggler*/
+/*============================== *!*/
+/*.navbar-toggler {*/
+/*    border-color: var(--main-color-text);*/
+/*}*/
+
+/*.navbar-toggler-icon {*/
+/*    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/ %3E%3C/svg%3E");*/
+/*}*/
+
+/*!* ==============================*/
+/*   Navbar Dropdown*/
+/*============================== *!*/
+/*.navbar .dropdown-menu {*/
+/*    background-color: var(--main-color-primary);*/
+/*    border: none;*/
+/*    min-width: 200px;*/
+/*}*/
+
+/*.navbar .dropdown-item {*/
+/*    color: var(--main-color-text);*/
+/*}*/
+
+/*.navbar .dropdown-item:hover,*/
+/*.navbar .dropdown-item:focus {*/
+/*    background-color: var(--main-color-bright);*/
+/*    color: var(--main-color-dark);*/
+/*}*/
+
+/*!* ==============================*/
+/*   Dark Mode Support*/
+/*============================== *!*/
+/*body.dark-mode .navbar {*/
+/*    background-color: var(--main-color-dark);*/
+/*}*/
+
+/*body.dark-mode .navbar a.nav-link,*/
+/*body.dark-mode .navbar a.navbar-brand h2,*/
+/*body.dark-mode .navbar .dropdown-item {*/
+/*    color: var(--main-color-light) !important;*/
+/*}*/
+
+/*body.dark-mode .navbar .dropdown-item:hover {*/
+/*    background-color: var(--main-color-bright);*/
+/*    color: var(--main-color-primary);*/
+/*}*/
+
+/*!* ==============================*/
+/*   Responsive Adjustments*/
+/*============================== *!*/
+/*@media (max-width: 992px) {*/
+/*    .navbar-brand {*/
+/*        !* keeps brand visible on smaller screens *!*/
+/*        position: relative;*/
+/*        z-index: 1;*/
+/*    }*/
+
+/*    .navbar-collapse {*/
+/*        background-color: var(--main-color-primary);*/
+/*    }*/
+/*}*/
+
+
+/*!* ========================================*/
+/*   Buttons*/
+/*======================================== *!*/
+/*.btn-primary {*/
+/*    background-color: var(--main-color-primary) !important;*/
+/*}*/
+
+/*!* ========================================*/
+/*   Layout Utilities*/
+/*======================================== *!*/
+/*.flex-sp-btw {*/
+/*    display: flex;*/
+/*    justify-content: space-evenly;*/
+/*}*/
+
+/*.nav-flex {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.links > a {*/
+/*    margin-right: 24px;*/
+/*}*/
+
+/*.centered {*/
+/*    margin: 0 auto;*/
+/*}*/
+
+/*.centered2 {*/
+/*    text-align: center;*/
+/*}*/
+
+/*.vert-align {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.cd {*/
+/*    color: #f00 !important;*/
+/*}*/
+
+/* ========================================
+   Footer
+======================================== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--main-color-dark) !important;
+    padding: 20px 0;
+    text-align: center;
 }
-/*white background box.*/
-.wbb, .ddl{
-    padding:0px 8px 0px 8px !important;
-    background-color:#ccc !important;
-    border:8px #ccc solid !important;
-    border-radius:12px !important;
-    white-space:nowrap !important
-}
-/*prevent text from disappearing*/
-@media screen and (min-width: 1024px){
-    .navbar-dropdown .navbar-item{
-        white-space:unset!important;
-        /*        background-color: var(--main-color-primary) !important;*/
-    }
+/*.ftr {*/
+/*    margin-top: 50px;*/
+/*    padding: 20px;*/
+/*    background: var(--main-color-dark);*/
+/*    color: var(--main-color-text);*/
+/*    width: 100%;*/
+/*    bottom: 0;*/
+/*}*/
 
-    .navbar-dropdown a.navbar-item{
-        padding-right: 16px!important
-    }
+/*!* ========================================*/
+/*   Dropdown Links*/
+/*======================================== *!*/
+/*.ddl {*/
+/*    margin: 0 8px;*/
+/*    font-size: 28px;*/
+/*    padding: 0 8px !important;*/
+/*    background-color: #ccc !important;*/
+/*    border: 8px #ccc solid !important;*/
+/*    border-radius: 12px !important;*/
+/*    white-space: nowrap !important;*/
+/*}*/
 
-    .navbar-end{
-        padding-right: 5px!important
-    }
-}
+/*!* ========================================*/
+/*   Forms & Fields*/
+/*======================================== *!*/
+/*.field-id {*/
+/*    width: 20px;*/
+/*    display: none;*/
+/*}*/
 
-.container{
-    background: var(--main-color-light);
+/*.field:not(:last-child) {*/
+/*    margin: 0 6rem 0.75rem 6rem;*/
+/*}*/
 
-}
-.container button {
-    margin-top: 30px;
-}
-/*
-Arrange invoice list tittle and add button
-#invoiceLitsTittle {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-}*/
+/*!* ========================================*/
+/*   Containers*/
+/*======================================== *!*/
+/*.container {*/
+/*    background: var(--main-color-light);*/
+/*}*/
 
-/*Adjust invoiceAdd fields witdh*/
-.field:not(:last-child) {
-    margin: 0 6rem 0.75rem 6rem;
-}
-/*
-#btnInvoiceAdd {
-    margin-left: 6rem;
-}*/
+/*.container button {*/
+/*    margin-top: 30px;*/
+/*}*/
 
-/*Table styles */
-.tableStyles {
-    padding: 0;
-    background: #ccc;
-    display: inline-block;
-    border: 8px #ccc solid;
-    border-collapse: collapse;
-    border-radius: 12px;
-    white-space: nowrap;
-}
+/*!* ========================================*/
+/*   Typography*/
+/*======================================== *!*/
+/*.title {*/
+/*    color: var(--main-color-bright) !important;*/
+/*}*/
 
-.tableStyles tr:nth-child(odd) {
-    background-color: #fff;
-}
+/*!* ========================================*/
+/*   Responsive Design*/
+/*======================================== *!*/
+/*@media (max-width: 1023px) {*/
+/*    .navbar-bgn {*/
+/*        padding: 1rem 0.75rem !important;*/
+/*    }*/
 
-.tableStyles th, td {
-    padding-right: 45px;
-}
+/*nav{*/
 
-.tableStyles th:first-child,
-.tableStyles td:first-child {
-    padding-left: 10px;
-}
+/*}*/
+/*    .navbar-brand {*/
+/*        !*right: 0;*!*/
+/*        position: absolute;*/
+/*        z-index: 1;*/
+/*        left: 0;*/
+/*    }*/
 
-.tableStyles th:last-child,
-.tableStyles td:last-child {
-    padding-right: 10px;
-}
+/*    #navbarBasicExample {*/
+/*        width: 100%;*/
+/*        position: absolute;*/
+/*    }*/
+
+/*    .navbar-link:not(.is-arrowless)::after {*/
+/*        margin-right: 3.15px;*/
+/*    }*/
+
+/*    .ddl {*/
+/*        display: inline-block;*/
+/*        margin-top: 16px !important;*/
+/*    }*/
+
+/*    .nav {*/
+/*        margin-bottom: 16px !important;*/
+/*    }*/
+
+/*    .navbar-menu.is-active {*/
+/*        padding: 0;*/
+/*    }*/
+
+/*    .navbar-index {*/
+/*        padding: 0.86rem 0;*/
+/*        margin-right: 52px;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 1024px) {*/
+/*    .navbar-dropdown .navbar-item {*/
+/*        white-space: unset !important;*/
+/*    }*/
+
+/*    .navbar-dropdown a.navbar-item {*/
+/*        padding-right: 16px !important;*/
+/*    }*/
+
+/*    .navbar-end {*/
+/*        padding-right: 5px !important;*/
+/*    }*/
+/*}*/
