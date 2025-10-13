@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <!-- Footer Fragment -->
-<footer th:fragment="footer" class="footer bg-dark text-white py-3">
+<footer th:fragment="footer" class="footer text-white py-3">
     <div class="container text-center">
         <!-- Current Date and Business Name -->
         <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></span>
