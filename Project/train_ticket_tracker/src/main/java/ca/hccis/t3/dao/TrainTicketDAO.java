@@ -97,64 +97,46 @@ public class TrainTicketDAO {
     /**
      * Select all by date range
      *
-     * @since 20241010
-     * @author BJM
+     * @since 20251017
+     * @author Brownhill Udeh
      */
     public ArrayList<TrainTicket> selectAllByDateRange(String start, String end) {
-        ArrayList<TrainTicket> passes = null;
+        ArrayList<TrainTicket> passes = new ArrayList<>();
         Statement stmt = null;
 
-        // ******************************************************************
-        // Use the DriverManager to get a connection to our MySql database. Note
-        // that in the dependencies, we added the Java connector to MySql which
-        // will allow us to connect to a MySql database.
-        // ******************************************************************
-        // ******************************************************************
-        // Create a statement object using our connection to the database. This
-        // statement object will allow us to run sql commands against the database.
-        // ******************************************************************
         try {
-
             stmt = conn.createStatement();
-            String sqlStatement = "select * from ticket " +
-                    "where startDate >= '" + start
-                    + "' and startDate <= '" + end + "';";
+            String sqlStatement = "SELECT * FROM ticket " +
+                    "WHERE issueDate >= '" + start +
+                    "' AND issueDate <= '" + end + "';";
 
             rs = stmt.executeQuery(sqlStatement);
 
-            // ******************************************************************
-            // Loop through the result set using the next method.
-            // ******************************************************************
-            passes = new ArrayList();
-
             while (rs.next()) {
-
                 TrainTicket ticket = new TrainTicket();
-                ticket.setId(rs.getInt(1));
+                ticket.setId(rs.getInt("id"));
                 ticket.setName(rs.getString("name"));
                 ticket.setIssueDate(rs.getString("issueDate"));
                 ticket.setStation(rs.getString("station"));
                 ticket.setDepartureTime(rs.getString("departureTime"));
                 ticket.setDestination(rs.getString("destination"));
                 ticket.setTravelLength(rs.getInt("travelLength"));
-
                 passes.add(ticket);
             }
 
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         } finally {
-
             try {
-                stmt.close();
+                if (stmt != null) stmt.close();
             } catch (SQLException ex) {
                 System.out.println("There was an error closing");
             }
         }
+
         return passes;
     }
+
 
     /**
      * Select all for min length report
@@ -162,57 +144,33 @@ public class TrainTicketDAO {
      * @since 20241011
      * @author BJM
      */
-    public ArrayList<TrainTicket> selectAllWithTravelLength(int minLength) throws SQLException {
-        ArrayList<TrainTicket> passes = null;
-        Statement stmt = null;
+    public ArrayList<TrainTicket> selectAllWithTravelLength(int minLength, int maxLength) throws SQLException {
+        ArrayList<TrainTicket> passes = new ArrayList<>();
+        String sql = "SELECT * FROM ticket WHERE travelLength BETWEEN ? AND ?";
 
-        // ******************************************************************
-        // Use the DriverManager to get a connection to our MySql database. Note
-        // that in the dependencies, we added the Java connector to MySql which
-        // will allow us to connect to a MySql database.
-        // ******************************************************************
-        // ******************************************************************
-        // Create a statement object using our connection to the database. This
-        // statement object will allow us to run sql commands against the database.
-        // ******************************************************************
-        try {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, minLength);
+            stmt.setInt(2, maxLength);
 
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from ticket " +
-                    "where lengthOfPass >= " + minLength + ";");
-
-            // ******************************************************************
-            // Loop through the result set using the next method.
-            // ******************************************************************
-            passes = new ArrayList();
-
-            while (rs.next()) {
-
-                TrainTicket ticket = new TrainTicket();
-                ticket.setId(rs.getInt(1));
-                ticket.setName(rs.getString("name"));
-                ticket.setIssueDate(rs.getString("issueDate"));
-                ticket.setStation(rs.getString("station"));
-                ticket.setDepartureTime(rs.getString("departureTime"));
-                ticket.setDestination(rs.getString("destination"));
-                ticket.setTravelLength(rs.getInt("travelLength"));
-
-                passes.add(ticket);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    TrainTicket ticket = new TrainTicket();
+                    ticket.setId(rs.getInt("id"));
+                    ticket.setName(rs.getString("name"));
+                    ticket.setIssueDate(rs.getString("issueDate"));
+                    ticket.setStation(rs.getString("station"));
+                    ticket.setDepartureTime(rs.getString("departureTime"));
+                    ticket.setDestination(rs.getString("destination"));
+                    ticket.setTravelLength(rs.getInt("travelLength"));
+                    passes.add(ticket);
+                }
             }
-
         } catch (SQLException e) {
-
             e.printStackTrace();
             throw e;
-
-        } finally {
-
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                System.out.println("There was an error closing");
-            }
         }
+
         return passes;
+
     }
 }

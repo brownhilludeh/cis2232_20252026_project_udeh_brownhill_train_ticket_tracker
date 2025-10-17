@@ -134,4 +134,19 @@ public class TrainTicket {
         this.travelLength = travelLength;
     }
 
+    @Override
+    public String toString() {
+        return "TrainTicket{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", issueDate='" + issueDate + '\'' +
+                ", station='" + station + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", destination='" + destination + '\'' +
+                ", travelLength=" + travelLength +
+                ", ticketPrice=" + ticketPrice +
+                ", isStudent=" + isStudent +
+                ", isFrequent=" + isFrequent +
+                '}';
+    }
 }

@@ -2,15 +2,11 @@ package ca.hccis.t3.bo;
 
 import ca.hccis.t3.dao.TrainTicketDAO;
 import ca.hccis.t3.jpa.entity.TrainTicket;
-//import ca.hccis.t3.jpa.entity.CodeValue;
-import ca.hccis.t3.repositories.CodeValueRepository;
 import ca.hccis.t3.util.CisUtilityFile;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpSession;
 
 public class TrainTicketBO {
 
@@ -24,18 +20,18 @@ public class TrainTicketBO {
         return tickets;
     }
 
-    public static ArrayList<TrainTicket> processTravelLengthReport(int minLength, Integer integer) throws SQLException {
+    public static ArrayList<TrainTicket> processTravelLengthReport(int minLength, int maxLength) throws SQLException {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
-        ArrayList<TrainTicket> tickets = null;
+        ArrayList<TrainTicket> tickets;
 
         try {
-            tickets = trainTicketDAO.selectAllWithTravelLength(minLength);
+            tickets = trainTicketDAO.selectAllWithTravelLength(minLength, maxLength);
         } catch (SQLException e) {
             throw e;
         }
 
-        //Also write the report to a file
-        CisUtilityFile.writeReportToFile("minLengthReport", tickets);
+        // Also write the report to a file
+        CisUtilityFile.writeReportToFile("travelRangeReport", tickets);
 
         return tickets;
     }
