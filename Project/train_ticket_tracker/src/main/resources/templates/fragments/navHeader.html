@@ -23,9 +23,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
 
-                <!-- Assessments -->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/trainticket}">Assessments</a>
+
+<!-- Train Ticket Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Train Ticket</a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/ticket}">Train Ticket List</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/ticket/add}">Add Train Ticket</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- Reports Dropdown -->

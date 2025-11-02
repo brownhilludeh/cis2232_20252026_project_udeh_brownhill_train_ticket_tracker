@@ -70,7 +70,7 @@ public class TrainTicketDAO {
                 TrainTicket ticket = new TrainTicket();
                 ticket.setId(rs.getInt(1));
                 ticket.setName(rs.getString("name"));
-                ticket.setIssueDate(rs.getString("issueDate"));
+                ticket.setIssueDate(rs.getObject("issueDate", java.time.LocalDate.class));
                 ticket.setStation(rs.getString("station"));
                 ticket.setDepartureTime(rs.getString("departureTime"));
                 ticket.setDestination(rs.getString("destination"));
@@ -116,7 +116,7 @@ public class TrainTicketDAO {
                 TrainTicket ticket = new TrainTicket();
                 ticket.setId(rs.getInt("id"));
                 ticket.setName(rs.getString("name"));
-                ticket.setIssueDate(rs.getString("issueDate"));
+                ticket.setIssueDate(rs.getObject("issueDate", java.time.LocalDate.class));
                 ticket.setStation(rs.getString("station"));
                 ticket.setDepartureTime(rs.getString("departureTime"));
                 ticket.setDestination(rs.getString("destination"));
@@ -157,7 +157,7 @@ public class TrainTicketDAO {
                     TrainTicket ticket = new TrainTicket();
                     ticket.setId(rs.getInt("id"));
                     ticket.setName(rs.getString("name"));
-                    ticket.setIssueDate(rs.getString("issueDate"));
+                    ticket.setIssueDate(rs.getObject("issueDate", java.time.LocalDate.class));
                     ticket.setStation(rs.getString("station"));
                     ticket.setDepartureTime(rs.getString("departureTime"));
                     ticket.setDestination(rs.getString("destination"));

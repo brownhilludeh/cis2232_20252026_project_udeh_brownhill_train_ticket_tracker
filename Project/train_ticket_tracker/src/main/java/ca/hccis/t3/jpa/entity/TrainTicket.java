@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "Ticket")
@@ -18,12 +21,13 @@ public class TrainTicket {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @Size(max = 10)
     @NotNull
-    @Column(name = "issueDate", nullable = false, length = 10)
-    private String issueDate;
+    @Column(name = "issueDate", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate issueDate;
 
-    @Size(max = 50)
+
+    @Size(min = 1, max = 50)
     @NotNull
     @Column(name = "station", nullable = false, length = 50)
     private String station;
@@ -33,7 +37,7 @@ public class TrainTicket {
     @Column(name = "departureTime", nullable = false, length = 8)
     private String departureTime;
 
-    @Size(max = 50)
+    @Size(min = 1, max = 50)
     @NotNull
     @Column(name = "destination", nullable = false, length = 50)
     private String destination;
@@ -70,14 +74,12 @@ public class TrainTicket {
         this.name = name;
     }
 
-    public String getIssueDate() {
+    public LocalDate getIssueDate() {
         return issueDate;
     }
-
-    public void setIssueDate(String issueDate) {
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
-
     public String getStation() {
         return station;
     }

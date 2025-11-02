@@ -69,7 +69,7 @@ public class TrainTicketBO {
         ticket.setIsStudent(false);
         ticket.setIsFrequent(false);
         ticket.setTravelLength(0);
-        ticket.setIssueDate(java.time.LocalDate.now().toString());
+        ticket.setIssueDate(java.time.LocalDate.now());
     }
 
 //    public static void setTicketTypes(CodeValueRepository _cvr, HttpSession session) {
