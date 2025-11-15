@@ -90,6 +90,12 @@
             <type>jar</type>
         </dependency>
 
+        <!-- Apache CXF for SOAP Web Services -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>3.5.3</version>
+        </dependency>
     </dependencies>
 
     <build>
