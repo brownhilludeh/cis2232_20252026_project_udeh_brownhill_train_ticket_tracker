@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headerFragment('Deutsche Bahn Train Search')"></head>
+
+<body>
+<!-- Navbar -->
+<div th:replace="fragments/navHeader :: navbar"></div>
+
+<div class="container my-5">
+
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">🚂 Deutsche Bahn Train Search API</h2>
+            <p class="text-muted">Search real-time train schedules, stations, and journeys across Germany and Europe</p>
+        </div>
+    </div>
+
+    <!-- Error/Success Messages -->
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <strong>Error:</strong> <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Station Search Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-search me-2"></i>Search Stations</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Find train stations by name (e.g., "Berlin", "Munich", "Frankfurt")</p>
+
+            <form th:action="@{/external-api/search-stations}" method="post" class="row g-3">
+                <div class="col-md-10">
+                    <label for="query" class="form-label">Station Name:</label>
+                    <input type="text" class="form-control" id="query" name="query"
+                           th:value="${searchQuery}" placeholder="Enter station name (e.g., Berlin)" required>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+
+            <!-- Display Station Results -->
+            <div th:if="${stations != null and not #lists.isEmpty(stations)}" class="mt-4">
+                <h6 class="text-success">
+                    <i class="bi bi-check-circle-fill"></i> Found <span th:text="${#lists.size(stations)}"></span> station(s):
+                </h6>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-6 col-lg-4" th:each="station : ${stations}">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body">
+                                <h6 class="card-title text-primary" th:text="${station.name}"></h6>
+                                <p class="card-text small mb-2">
+                                    <strong>Station ID:</strong>
+                                    <span class="badge bg-secondary" th:text="${station.id}"></span>
+                                </p>
+                                <p class="card-text small" th:if="${station.latitude != null}">
+                                    <strong>Location:</strong>
+                                    <span th:text="${station.latitude}"></span>,
+                                    <span th:text="${station.longitude}"></span>
+                                </p>
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                            th:attr="onclick='document.getElementById(\'stationIdDep\').value=\'' + ${station.id} + '\'; document.getElementById(\'departuresSection\').scrollIntoView({behavior: \'smooth\'});'">
+                                        <i class="bi bi-clock-history"></i> View Departures
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                            th:attr="onclick='document.getElementById(\'fromStationId\').value=\'' + ${station.id} + '\';'">
+                                        <i class="bi bi-geo-alt"></i> Use as Origin
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-info"
+                                            th:attr="onclick='document.getElementById(\'toStationId\').value=\'' + ${station.id} + '\';'">
+                                        <i class="bi bi-geo-alt-fill"></i> Use as Destination
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Journey Search Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="bi bi-ticket-perforated me-2"></i>Find Train Journeys</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Search for train connections between two stations</p>
+
+            <form th:action="@{/external-api/find-journeys}" method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label for="fromStationId" class="form-label">From Station ID:</label>
+                    <input type="text" class="form-control" id="fromStationId" name="fromStationId"
+                           th:value="${fromStationId}" placeholder="e.g., 8011160 (Berlin Hbf)" required>
+                    <small class="form-text text-muted">
+                        <i class="bi bi-lightbulb"></i> Tip: Search for stations above to get their IDs
+                    </small>
+                </div>
+                <div class="col-md-6">
+                    <label for="toStationId" class="form-label">To Station ID:</label>
+                    <input type="text" class="form-control" id="toStationId" name="toStationId"
+                           th:value="${toStationId}" placeholder="e.g., 8000105 (Frankfurt Hbf)" required>
+                </div>
+                <div class="col-md-8">
+                    <label for="departureTime" class="form-label">Departure Date & Time:</label>
+                    <input type="datetime-local" class="form-control" id="departureTime"
+                           name="departureTime" th:value="${departureTime}" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="bi bi-search"></i> Find Journeys
+                    </button>
+                </div>
+            </form>
+
+            <!-- Display Journey Results -->
+            <div th:if="${journeys != null and !journeys.empty}" class="mt-4">
+                <h6 class="text-success">
+                    <i class="bi bi-check-circle-fill"></i> Found <span th:text="${#lists.size(journeys)}"></span> journey option(s):
+                </h6>
+                <div class="accordion mt-3" id="journeysAccordion">
+                    <div class="accordion-item" th:each="journey, iterStat : ${journeys}">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    th:data-bs-target="'#collapse' + ${iterStat.index}"
+                                    th:attr="aria-expanded=${iterStat.index == 0 ? 'true' : 'false'}">
+                                <strong>Option <span th:text="${iterStat.index + 1}"></span>: </strong>
+                                <span class="ms-2" th:text="${journey.trainLine}"></span>
+                                <span class="ms-auto badge bg-warning text-dark"
+                                      th:if="${journey.numberOfLegs != null and journey.numberOfLegs > 1}">
+                                    <span th:text="${journey.numberOfLegs}"></span> connections
+                                </span>
+                            </button>
+                        </h2>
+                        <div th:id="'collapse' + ${iterStat.index}"
+                             class="accordion-collapse collapse"
+                             th:classappend="${iterStat.index == 0 ? 'show' : ''}"
+                             data-bs-parent="#journeysAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong><i class="bi bi-geo-alt text-success"></i> From:</strong>
+                                            <span th:text="${journey.origin}"></span>
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong><i class="bi bi-clock"></i> Departure:</strong>
+                                            <span th:text="${journey.departureTime}"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-2">
+                                            <strong><i class="bi bi-geo-alt-fill text-danger"></i> To:</strong>
+                                            <span th:text="${journey.destination}"></span>
+                                        </p>
+                                        <p class="mb-2">
+                                            <strong><i class="bi bi-clock-fill"></i> Arrival:</strong>
+                                            <span th:text="${journey.arrivalTime}"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <p class="mb-0">
+                                            <strong><i class="bi bi-arrow-left-right"></i> Connections:</strong>
+                                            <span th:text="${journey.numberOfLegs}"></span> leg(s)
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6" th:if="${journey.price != null}">
+                                        <p class="mb-0">
+                                            <strong><i class="bi bi-currency-euro"></i> Price:</strong>
+                                            €<span th:text="${journey.price}"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-Time Departures Section -->
+    <div class="card shadow-sm mb-4" id="departuresSection">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="bi bi-train-front me-2"></i>Real-Time Station Departures</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">View upcoming departures from a specific station</p>
+
+            <form th:action="@{/external-api/departures}" method="post" class="row g-3">
+                <div class="col-md-8">
+                    <label for="stationIdDep" class="form-label">Station ID:</label>
+                    <input type="text" class="form-control" id="stationIdDep" name="stationId"
+                           th:value="${stationId}" placeholder="e.g., 8011160 (Berlin Hbf)" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="duration" class="form-label">Time Window (min):</label>
+                    <input type="number" class="form-control" id="duration" name="duration"
+                           th:value="${duration != null ? duration : 120}"
+                           min="30" max="360" step="30">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-warning w-100">
+                        <i class="bi bi-clock-history"></i> Get Departures
+                    </button>
+                </div>
+            </form>
+
+            <!-- Display Departures -->
+            <div th:if="${departures != null and !departures.empty}" class="mt-4">
+                <h6 class="text-success">
+                    <i class="bi bi-check-circle-fill"></i> Upcoming Departures
+                    (<span th:text="${#lists.size(departures)}"></span> trains):
+                </h6>
+                <div class="table-responsive mt-3">
+                    <table class="table table-striped table-hover table-bordered align-middle mb-0">
+                        <thead class="table-dark">
+                        <tr>
+                            <th><i class="bi bi-clock"></i> Time</th>
+                            <th><i class="bi bi-train-front"></i> Train Line</th>
+                            <th><i class="bi bi-signpost"></i> Direction</th>
+                            <th><i class="bi bi-pin-map"></i> Platform</th>
+                            <th><i class="bi bi-info-circle"></i> Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="departure : ${departures}">
+                            <td th:text="${departure.departureTime}"></td>
+                            <td><strong th:text="${departure.trainLine}"></strong></td>
+                            <td th:text="${departure.destination}"></td>
+                            <td th:text="${departure.platform != null ? departure.platform : 'TBA'}"></td>
+                            <td>
+                                    <span th:if="${departure.delayMinutes != null and departure.delayMinutes > 0}"
+                                          class="badge bg-danger">
+                                        <i class="bi bi-exclamation-triangle"></i> +<span th:text="${departure.delayMinutes}"></span> min delay
+                                    </span>
+                                <span th:unless="${departure.delayMinutes != null and departure.delayMinutes > 0}"
+                                      class="badge bg-success">
+                                        <i class="bi bi-check-circle"></i> On time
+                                    </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Stations Quick Reference -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0"><i class="bi bi-pin-map-fill me-2"></i>Popular Station IDs</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted">Use these common station IDs for quick searches:</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8011160</span>
+                            <strong class="ms-2">Berlin Hauptbahnhof</strong>
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8000105</span>
+                            <strong class="ms-2">Frankfurt (Main) Hbf</strong>
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8000261</span>
+                            <strong class="ms-2">München Hbf</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8002549</span>
+                            <strong class="ms-2">Hamburg Hbf</strong>
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8000207</span>
+                            <strong class="ms-2">Köln Hbf</strong>
+                        </li>
+                        <li class="mb-2">
+                            <span class="badge bg-primary">8000096</span>
+                            <strong class="ms-2">Stuttgart Hbf</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

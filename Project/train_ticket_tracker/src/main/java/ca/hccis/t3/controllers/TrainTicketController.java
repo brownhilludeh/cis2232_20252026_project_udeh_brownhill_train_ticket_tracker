@@ -133,7 +133,7 @@ public class TrainTicketController {
      * Submit method that processes add and edit and any form submission
      *
      * @param model
-     * @param request
+     * @param @request
      * @param ticket       what is being added or modified
      * @param bindingResult Result of SQL
      * @return add with errors or ticket
