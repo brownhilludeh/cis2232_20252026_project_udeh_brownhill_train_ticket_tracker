@@ -25,11 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path("/ticketService/tickets")
 public class TrainTicketService
 {
-    private final TrainTicketRepository _t3r;
+    private final TrainTicketRepository _ttr;
     
     @Autowired
     public TrainTicketService(TrainTicketRepository t3r){
-        this._t3r = t3r;
+        this._ttr = t3r;
     }
     
     /**
@@ -43,7 +43,7 @@ public class TrainTicketService
     @Produces("application/json")
     public Response getAll()
     {
-        ArrayList<TrainTicket> tickets = (ArrayList<TrainTicket>) _t3r.findAll();
+        ArrayList<TrainTicket> tickets = (ArrayList<TrainTicket>) _ttr.findAll();
 
         if (tickets == null || tickets.isEmpty()) {
             return Response.status(204).build();
@@ -59,11 +59,11 @@ public class TrainTicketService
     public Response delete(@PathParam("id") int id){
 
         try {
-            Optional<TrainTicket> ticket = _t3r.findById(Integer.valueOf(id));
+            Optional<TrainTicket> ticket = _ttr.findById(Integer.valueOf(id));
             if (ticket==null) {
                 return Response.status(204).build();
             }else{
-                _t3r.delete(ticket.get());
+                _ttr.delete(ticket.get());
             }
         }catch (Exception e) {
             return Response.status(HttpURLConnection.HTTP_NOT_ACCEPTABLE).entity(e.getMessage()).build();
@@ -84,7 +84,7 @@ public class TrainTicketService
     @Produces("application/json")
     public Response getTicketsById(@PathParam("id") Integer id) throws URISyntaxException
     {
-        Optional<TrainTicket> ticket = _t3r.findById(id);
+        Optional<TrainTicket> ticket = _ttr.findById(id);
          if (!ticket.isPresent()) {
             return Response.status(204).build();
         } else {
@@ -163,7 +163,7 @@ public class TrainTicketService
             ticket.setId(0);
         }
         TrainTicketBO.calculateTicketPrice(ticket);
-        ticket = _t3r.save(ticket);
+        ticket = _ttr.save(ticket);
 
         String temp = "";
         temp = gson.toJson(ticket);

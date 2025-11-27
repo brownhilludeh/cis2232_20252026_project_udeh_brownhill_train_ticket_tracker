@@ -5,6 +5,7 @@
  */
 package ca.hccis.t3;
 
+import ca.hccis.t3.rest.ExternalTrainAPIRestService;
 import ca.hccis.t3.rest.TrainTicketService;
 import javax.annotation.PostConstruct;
 import javax.ws.rs.ApplicationPath;
@@ -21,6 +22,7 @@ public class JerseyConfig extends ResourceConfig {
 
     @PostConstruct
     private void init() {
-        registerClasses(TrainTicketService.class);
+
+        registerClasses(TrainTicketService.class, ExternalTrainAPIRestService.class);
     }
 }
