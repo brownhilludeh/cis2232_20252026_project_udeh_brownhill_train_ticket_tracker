@@ -17,13 +17,23 @@
             <label class="form-label">Passenger Name</label>
             <input type="text" class="form-control" th:field="*{name}">
             <div class="text-danger" th:errors="*{name}"></div>
+            <!-- Business validation errors for name -->
+            <ul th:if="${businessValidationErrorsName}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsName}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- issue date -->
         <div class="col-md-6">
             <label class="form-label">Issue Date (yyyy-mm-dd)</label>
-            <input type="text" class="form-control" th:field="*{issueDate}">
+            <input type="text" class="form-control" th:field="*{issueDate}" placeholder="yyyy-mm-dd">
             <div class="text-danger" th:errors="*{issueDate}"></div>
+            <!-- Business validation errors for issue date -->
+            <ul th:if="${businessValidationErrorsIssueDate}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsIssueDate}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- station -->
@@ -31,6 +41,11 @@
             <label class="form-label">From Station</label>
             <input type="text" class="form-control" th:field="*{station}">
             <div class="text-danger" th:errors="*{station}"></div>
+            <!-- Business validation errors for station -->
+            <ul th:if="${businessValidationErrorsStation}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsStation}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- destination -->
@@ -38,52 +53,59 @@
             <label class="form-label">Destination</label>
             <input type="text" class="form-control" th:field="*{destination}">
             <div class="text-danger" th:errors="*{destination}"></div>
+            <!-- Business validation errors for destination -->
+            <ul th:if="${businessValidationErrorsDestination}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsDestination}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- departure time -->
         <div class="col-md-4">
             <label class="form-label">Departure Time (hh:mm)</label>
-            <input type="text" class="form-control" th:field="*{departureTime}">
+            <input type="text" class="form-control" th:field="*{departureTime}" placeholder="14:30">
             <div class="text-danger" th:errors="*{departureTime}"></div>
+            <!-- Business validation errors for departure time -->
+            <ul th:if="${businessValidationErrorsDepartureTime}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsDepartureTime}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- travel length -->
         <div class="col-md-4">
-            <label class="form-label">Travel Length (km)</label>
+            <label class="form-label">Travel Length (minutes)</label>
             <input type="number" class="form-control" th:field="*{travelLength}">
             <div class="text-danger" th:errors="*{travelLength}"></div>
+            <!-- Business validation errors for travel length -->
+            <ul th:if="${businessValidationErrorsTravelLength}" class="text-danger">
+                <li th:each="businessValidationError : ${businessValidationErrorsTravelLength}"
+                    th:text="${businessValidationError}"></li>
+            </ul>
         </div>
 
         <!-- ticket price (disabled) -->
         <div class="col-md-4">
-            <label class="form-label">Ticket Price</label>
+            <label class="form-label">Ticket Price (Calculated)</label>
             <!-- Display only -->
             <input type="text" class="form-control" disabled readonly
-                   th:value="${ticket.id != null ? ticket.ticketPrice : ''}">
+                   th:value="${ticket.id != null ? ticket.ticketPrice : 'Enter details to calculate'}">
 
             <!-- Hidden field for submission -->
             <input type="hidden" th:field="*{ticketPrice}">
-
+            <small class="text-muted">Price calculated automatically based on travel length and discounts</small>
         </div>
-
 
         <!-- Student -->
         <div class="col-md-6 form-check mt-3">
             <input class="form-check-input" type="checkbox" th:field="*{isStudent}">
-            <label class="form-check-label">Student Discount?</label>
+            <label class="form-check-label">Student Discount (15% off)?</label>
         </div>
 
         <!-- Frequent -->
         <div class="col-md-6 form-check mt-3">
             <input class="form-check-input" type="checkbox" th:field="*{isFrequent}">
-            <label class="form-check-label">Frequent Traveller?</label>
-        </div>
-
-        <!-- validation errors from business rule -->
-        <div class="col-12 text-danger" th:if="${businessValidationErrorsStartDate}">
-            <ul>
-                <li th:each="err : ${businessValidationErrorsStartDate}" th:text="${err}"></li>
-            </ul>
+            <label class="form-check-label">Frequent Traveller (10% off)?</label>
         </div>
 
         <div class="col-12 mt-4">
