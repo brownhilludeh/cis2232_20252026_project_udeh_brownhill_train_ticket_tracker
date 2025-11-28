@@ -22,7 +22,7 @@ public class JerseyConfig extends ResourceConfig {
 
     @PostConstruct
     private void init() {
-
         registerClasses(TrainTicketService.class, ExternalTrainAPIRestService.class);
+        registerClasses(TrainTicketService.class);
     }
 }

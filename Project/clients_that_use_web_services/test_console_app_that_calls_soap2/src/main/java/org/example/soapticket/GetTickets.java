@@ -1,5 +1,5 @@
 
-package org.example.soapsquash;
+package org.example.soapticket;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAssessments")
-public class GetAssessments {
+@XmlType(name = "getTickets")
+public class GetTickets {
 
 
 }

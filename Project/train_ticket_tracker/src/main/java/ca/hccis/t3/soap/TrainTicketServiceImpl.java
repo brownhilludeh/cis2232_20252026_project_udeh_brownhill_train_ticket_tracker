@@ -32,5 +32,11 @@ public class TrainTicketServiceImpl implements TrainTicketService {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         return trainTicketDAO.selectAll();
     }
+    
+    // This is a typo method that should be removed in production
+    @Deprecated
+    private List<TrainTicket> getTicketes() {
+        return getTickets();
+    }
 
 }

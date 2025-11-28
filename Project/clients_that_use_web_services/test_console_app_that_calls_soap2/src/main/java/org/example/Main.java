@@ -1,13 +1,9 @@
 package org.example;
 
-import org.example.soap.BusPass;
-import org.example.soap.BusPassService;
-import org.example.soap.BusPassServiceImplService;
-import org.example.soapsquash.SkillsAssessmentSquashTechnical;
-import org.example.soapsquash.SkillsAssessmentSquashTechnicalService;
-import org.example.soapsquash.SkillsAssessmentSquashTechnicalServiceImplService;
+import org.example.soapticket.TrainTicket;
+import org.example.soapticket.TrainTicketService;
+import org.example.soapticket.TrainTicketServiceImplService;
 
-import java.util.Collections;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -25,11 +21,11 @@ public class Main {
 //            System.out.println(current);
 //        }
 
-               SkillsAssessmentSquashTechnicalServiceImplService skillsAssessmentSquashTechnicalServiceImplService = new SkillsAssessmentSquashTechnicalServiceImplService();
-        SkillsAssessmentSquashTechnicalService skillsAssessmentSquashTechnicalService = skillsAssessmentSquashTechnicalServiceImplService.getSkillsAssessmentSquashTechnicalServiceImplPort();
+               TrainTicketServiceImplService trainTicketServiceImplService = new TrainTicketServiceImplService();
+        TrainTicketService trainTicketService = trainTicketServiceImplService.getSkillsAssessmentSquashTechnicalServiceImplPort();
 
-        List<SkillsAssessmentSquashTechnical> theList = skillsAssessmentSquashTechnicalService.getAssessments();
-        for(SkillsAssessmentSquashTechnical current: theList){
+        List<TrainTicket> theList = trainTicketService.getAssessments();
+        for(TrainTicket current: theList){
             System.out.println(current);
         }
 
