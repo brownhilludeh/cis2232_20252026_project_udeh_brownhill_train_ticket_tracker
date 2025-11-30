@@ -9,7 +9,7 @@ import java.util.List;
 @WebService(endpointInterface = "ca.hccis.t3.soap.TrainTicketService")
 public class TrainTicketServiceImpl implements TrainTicketService {
 
-    public TrainTicket getTicket(int id) {
+    public TrainTicket getTicketById(int id) {
 
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         TrainTicket ticket = null;
@@ -19,7 +19,6 @@ public class TrainTicketServiceImpl implements TrainTicketService {
             }
         }
         return ticket;
-
     }
 
     @Override
@@ -32,11 +31,4 @@ public class TrainTicketServiceImpl implements TrainTicketService {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         return trainTicketDAO.selectAll();
     }
-    
-    // This is a typo method that should be removed in production
-    @Deprecated
-    private List<TrainTicket> getTicketes() {
-        return getTickets();
-    }
-
 }

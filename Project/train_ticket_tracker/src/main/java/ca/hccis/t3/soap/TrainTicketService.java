@@ -9,10 +9,9 @@ import java.util.List;
 @WebService
 public interface TrainTicketService {
     @WebMethod
-    TrainTicket getTicket(int id);
+    TrainTicket getTicketById(int id);
     @WebMethod
     List<TrainTicket> getTickets();
     @WebMethod
     int getCount();
-    
-}
+    }

@@ -22,5 +22,9 @@ public class JerseyConfig extends ResourceConfig {
     @PostConstruct
     private void init() {
         registerClasses(TrainTicketService.class);
+        System.out.println("========================================");
+        System.out.println("Jersey REST API Configured Successfully!");
+        System.out.println("REST endpoints available at: /api/train-departures");
+        System.out.println("========================================");
     }
 }
