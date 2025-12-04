@@ -17,14 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Controller to administer reports of the project.
- *
- * @author BJM
- * @since 20220616
- */
 @Controller
 @RequestMapping("/report")
 public class ReportController {
@@ -38,13 +31,16 @@ public class ReportController {
     }
 
     /**
-     * Send the user to list of reports view.
+     * This method is the entry point for the reports controller. It will
+     * display all available reports.
      *
      * @param model
+     *                the model object which will be used to pass data to the view
      * @param session
-     * @return To the appropriate view
-     * @author BJM
-     * @since 20220624
+     *                the session object which will be used to store data
+     * @return the view to show all available reports
+     * @author Brownhill Udeh
+     * @since 2025-10-10
      */
     @RequestMapping("")
     public String home(Model model, HttpSession session) {
@@ -52,17 +48,16 @@ public class ReportController {
         return "report/list";
     }
 
-    /*
-     * Process the report
+    /**
+     * This method is the entry point for the travel length range report. It will
+     * display the form for the travel length range report.
      *
      * @param model
-     * 
-     * @param reportTrainTicket Object containing inputs for the report
-     * 
-     * @return view to show form for travel length report
-     * 
-     * @author Brownhill U
-     * 
+     *                the model object which will be used to pass data to the view
+     * @param session
+     *                the session object which will be used to store data
+     * @return the view to show the form for the travel length range report
+     * @author Brownhill Udeh
      * @since 2025-10-10
      */
     @RequestMapping("/ticket/travel-range")
@@ -105,46 +100,18 @@ public class ReportController {
         return "report/reportTravelRangeView";
     }
 
-    // @RequestMapping("/ticket/date-range")
-    // public String reportTicketDateRange(Model model) {
-    // model.addAttribute("reportInput", new ReportTrainTicket());
-    // return "report/reportDateRangeIndex";
-    // }
-
-    // @RequestMapping("/ticket/date-range")
-    // public String reportTicketDateRange(Model model) {
-    // ArrayList<TrainTicket> tickets =
-    // TrainTicketBO.processDateRangeReport("2025-10-01", "2025-10-17");
-    // model.addAttribute("tickets", tickets); // Display
-    // model.addAttribute("reportInput", new ReportTrainTicket());
-    // model.addAttribute("message", "Report generated successfully with " +
-    // tickets.size() + " tickets.");
-    // return "report/reportDateRangeIndex";
-    // }
-    //
-    //
-    // // Handle form submission
-    // @PostMapping("/ticket/date-range")
-    // public String reportTicketDateRangeSubmit(@ModelAttribute("reportInput")
-    // ReportTrainTicket reportInput, Model model) {
-    //
-    // String startDate = reportInput.getStartDate();
-    // String endDate = reportInput.getEndDate();
-    //
-    // List<TrainTicket> tickets = service.getTicketsByDateRange(startDate,
-    // endDate);
-    //
-    // if (tickets.isEmpty()) {
-    // model.addAttribute("message", "No tickets found in this range");
-    // } else {
-    // reportInput.setTickets(tickets);
-    // model.addAttribute("reportInput", reportInput);
-    // }
-    //
-    // return "report/reportDateRangeView";
-    // }
-
-    // GET: show form
+    /**
+     * This method is the entry point for the date range report. It will
+     * display the form for the date range report.
+     *
+     * @param model
+     *                the model object which will be used to pass data to the view
+     * @param session
+     *                the session object which will be used to store data
+     * @return the view to show the form for the date range report
+     * @author Brownhill Udeh
+     * @since 2025-10-10
+     */
     @GetMapping("/ticket/date-range")
     public String showDateRangeForm(Model model) {
         model.addAttribute("reportInput", new ReportTrainTicket());
@@ -153,13 +120,20 @@ public class ReportController {
         return "report/reportDateRangeIndex";
     }
 
-    // POST: process submitted dates
+    /**
+     * Process the date range report form submission
+     *
+     * @param reportInput Object containing inputs for the report
+     * @param model
+     * @return view to show report of date range
+     * @author Brownhill Udeh
+     * @since 2025-10-10
+     */
     @PostMapping("/ticket/date-range")
     public String processDateRangeReport(@ModelAttribute("reportInput") ReportTrainTicket reportInput, Model model) {
         ArrayList<TrainTicket> tickets = TrainTicketBO.processDateRangeReport(
                 reportInput.getStartDate(), reportInput.getEndDate());
 
-        // Set tickets inside reportInput for Thymeleaf
         reportInput.setTickets(tickets);
 
         model.addAttribute("reportInput", reportInput);

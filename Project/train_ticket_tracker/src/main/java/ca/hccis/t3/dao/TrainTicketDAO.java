@@ -37,38 +37,27 @@ public class TrainTicketDAO {
     }
 
     /**
-     * Select all
-     *
-     * @since 20210924
-     * @author BJM
+     * Select all tickets from the database.
+     * 
+     * @return A list of all tickets in the database.
+     * @throws SQLException If there is an error accessing the database
+     * 
+     * @author Brownhill Udeh
+     * @since 2025-12-04
      */
     public ArrayList<TrainTicket> selectAll() {
         ArrayList<TrainTicket> passes = null;
         Statement stmt = null;
 
-        // ******************************************************************
-        // Use the DriverManager to get a connection to our MySql database. Note
-        // that in the dependencies, we added the Java connector to MySql which
-        // will allow us to connect to a MySql database.
-        // ******************************************************************
-        // ******************************************************************
-        // Create a statement object using our connection to the database. This
-        // statement object will allow us to run sql commands against the database.
-        // ******************************************************************
         try {
-
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from ticket;");
 
-            // ******************************************************************
-            // Loop through the result set using the next method.
-            // ******************************************************************
-            passes = new ArrayList();
+            passes = new ArrayList<>();
 
             while (rs.next()) {
-
                 TrainTicket ticket = new TrainTicket();
-                ticket.setId(rs.getInt(1));
+                ticket.setId(rs.getInt("id"));
                 ticket.setName(rs.getString("name"));
                 ticket.setIssueDate(rs.getObject("issueDate", java.time.LocalDate.class));
                 ticket.setStation(rs.getString("station"));
@@ -76,17 +65,18 @@ public class TrainTicketDAO {
                 ticket.setDestination(rs.getString("destination"));
                 ticket.setTravelLength(rs.getInt("travelLength"));
 
+                ticket.setIsStudent(rs.getBoolean("isStudent"));
+                ticket.setIsFrequent(rs.getBoolean("isFrequent"));
+
                 passes.add(ticket);
             }
 
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         } finally {
-
             try {
-                stmt.close();
+                if (stmt != null)
+                    stmt.close();
             } catch (SQLException ex) {
                 System.out.println("There was an error closing");
             }
@@ -95,10 +85,15 @@ public class TrainTicketDAO {
     }
 
     /**
-     * Select all by date range
-     *
-     * @since 20251017
+     * Select all tickets from the database where the issue date is between the
+     * given start and end dates.
+     * 
+     * @param start The start of the date range in YYYY-MM-DD format.
+     * @param end   The end of the date range in YYYY-MM-DD format.
+     * @return A list of tickets that fall within the given date range.
      * @author Brownhill Udeh
+     * @since 2025-10-10
+     * @throws SQLException If there is an error accessing the database
      */
     public ArrayList<TrainTicket> selectAllByDateRange(String start, String end) {
         ArrayList<TrainTicket> passes = new ArrayList<>();
@@ -121,6 +116,10 @@ public class TrainTicketDAO {
                 ticket.setDepartureTime(rs.getString("departureTime"));
                 ticket.setDestination(rs.getString("destination"));
                 ticket.setTravelLength(rs.getInt("travelLength"));
+
+                ticket.setIsStudent(rs.getBoolean("isStudent"));
+                ticket.setIsFrequent(rs.getBoolean("isFrequent"));
+
                 passes.add(ticket);
             }
 
@@ -128,7 +127,8 @@ public class TrainTicketDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (stmt != null) stmt.close();
+                if (stmt != null)
+                    stmt.close();
             } catch (SQLException ex) {
                 System.out.println("There was an error closing");
             }
@@ -137,12 +137,17 @@ public class TrainTicketDAO {
         return passes;
     }
 
-
     /**
-     * Select all for min length report
-     *
-     * @since 20241011
-     * @author BJM
+     * Select all tickets with a travel length between the given minimum and maximum
+     * travel lengths.
+     * 
+     * @param minLength The minimum travel length.
+     * @param maxLength The maximum travel length.
+     * @return A list of tickets with travel lengths between the given minimum and
+     *         maximum travel lengths.
+     * @throws SQLException If there is an error accessing the database
+     * @since 20251017
+     * @author Brownhill Udeh
      */
     public ArrayList<TrainTicket> selectAllWithTravelLength(int minLength, int maxLength) throws SQLException {
         ArrayList<TrainTicket> passes = new ArrayList<>();
@@ -162,6 +167,10 @@ public class TrainTicketDAO {
                     ticket.setDepartureTime(rs.getString("departureTime"));
                     ticket.setDestination(rs.getString("destination"));
                     ticket.setTravelLength(rs.getInt("travelLength"));
+
+                    ticket.setIsStudent(rs.getBoolean("isStudent"));
+                    ticket.setIsFrequent(rs.getBoolean("isFrequent"));
+
                     passes.add(ticket);
                 }
             }
@@ -171,6 +180,6 @@ public class TrainTicketDAO {
         }
 
         return passes;
-
     }
+
 }

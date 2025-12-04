@@ -9,8 +9,9 @@ import java.util.List;
 @Repository
 public interface TrainTicketRepository extends CrudRepository<TrainTicket, Integer> {
 
-    /*
-     * Use Spring Data JPA functionality to find a list of train tickets containing the
+    /**
+     * Use Spring Data JPA functionality to find a list of train tickets containing
+     * the
      * string passed in as a paramter.
      *
      * @param name The name to find

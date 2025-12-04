@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
@@ -8,6 +9,12 @@
         <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></span>
         &nbsp;|&nbsp;
         <span th:text="#{label.business.name}">Business Name</span>
+        &nbsp;|&nbsp;
+        <span th:text="#{label.all.rights.reserved}">All rights reserved. </span>
+
+        <p>
+            <span th:text="#{label.developed.by.Brownhill}">Developed by Brownhill</span>
+        </p>
     </div>
 </footer>
 </body>

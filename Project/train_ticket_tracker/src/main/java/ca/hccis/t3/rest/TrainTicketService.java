@@ -17,7 +17,7 @@ import java.util.Optional;
  * REST Service class for Train Ticket operations
  * Provides JSON API for CRUD operations
  *
- * @author Logan
+ * @author Brownhill Udeh
  * @since 2025-11-30
  */
 @Path("/tickets")
@@ -384,6 +384,8 @@ public class TrainTicketService {
 
     /**
      * Error response wrapper class
+     * @author Brownhill Udeh
+     * @since 2025-12-04
      */
     public static class ErrorResponse {
         private String error;

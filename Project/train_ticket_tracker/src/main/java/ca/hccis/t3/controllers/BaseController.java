@@ -1,7 +1,6 @@
 package ca.hccis.t3.controllers;
 
-import ca.hccis.t3.bo.TrainTicketBO;
-import ca.hccis.t3.repositories.CodeValueRepository;
+import ca.hccis.t3.repositories.TrainTicketRepository;
 import ca.hccis.t3.util.CisUtility;
 
 import javax.servlet.http.HttpSession;
@@ -10,46 +9,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Base controller which control general functionality in the app.
- *
- * @since 20220624
- * @author BJM
- */
 @Controller
 public class BaseController {
 
-    private final CodeValueRepository _cvr;
-
     @Autowired
-    public BaseController(CodeValueRepository cvr) {
-        _cvr = cvr;
+    private TrainTicketRepository _ttr;
+
+    public BaseController(TrainTicketRepository ttr) {
+        _ttr = ttr;
     }
 
     /**
-     * Send the user to the welcome view
+     * Send the user to the home page.
      *
-     * @since 20220624
-     * @author BJM
+     * @param session
+     *                the session object which will be used to store data
+     * @return the view to list all tickets
+     * @author Brownhill Udeh
+     * @since 2025-10-31
      */
     @RequestMapping("/")
     public String home(HttpSession session) {
 
-
-        //BJM 20200602 Issue#1 Set the current date in the session
         String currentDate = CisUtility.getCurrentDate("yyyy-MM-dd");
         session.setAttribute("currentDate", currentDate);
-
-//        TrainTicketBO.setTicketTypes(_cvr, session);
 
         return "index";
     }
 
     /**
-     * Send the user to the about view.
+     * Redirects the user to the about page.
      *
-     * @since 20220624
-     * @author BJM
+     * @return the view to list all tickets
+     * @author Brownhill Udeh
+     * @since 2025-11-03
      */
     @RequestMapping("/about")
     public String about() {

@@ -7,7 +7,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+/**
+ * Entity class to represent a train ticket.
+ * 
+ * @author Brownhill Udeh
+ * @since 2025-12-04
+ */
 @Entity
 @Table(name = "Ticket")
 public class TrainTicket {
@@ -25,7 +30,6 @@ public class TrainTicket {
     @Column(name = "issueDate", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate issueDate;
-
 
     @Size(min = 1, max = 50)
     @NotNull
@@ -77,9 +81,11 @@ public class TrainTicket {
     public LocalDate getIssueDate() {
         return issueDate;
     }
+
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
+
     public String getStation() {
         return station;
     }
@@ -136,6 +142,13 @@ public class TrainTicket {
         this.travelLength = travelLength;
     }
 
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object
+     * @author Brownhill Udeh
+     * @since 2025-12-04
+     */
     @Override
     public String toString() {
         return "TrainTicket{" +

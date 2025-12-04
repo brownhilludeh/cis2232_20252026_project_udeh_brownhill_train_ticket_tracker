@@ -10,16 +10,35 @@ import java.util.ArrayList;
 
 public class TrainTicketBO {
 
+    /**
+     * Process the report for the given date range.
+     *
+     * @param start The start of the date range in YYYY-MM-DD format.
+     * @param end   The end of the date range in YYYY-MM-DD format.
+     * @return A list of tickets that fall within the given date range.
+     * @author Brownhill Udeh
+     * @since 2025-10-10
+     */
     public static ArrayList<TrainTicket> processDateRangeReport(String start, String end) {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         ArrayList<TrainTicket> tickets = trainTicketDAO.selectAllByDateRange(start, end);
 
-        //Also write the report to a file
+        // Also write the report to a file
         CisUtilityFile.writeReportToFile("dateRangeReport", tickets);
 
         return tickets;
     }
 
+    /**
+     * Process the report for the given travel length range.
+     *
+     * @param minLength The minimum travel length.
+     * @param maxLength The maximum travel length.
+     * @return A list of tickets that fall within the given travel length range.
+     * @author Brownhill Udeh
+     * @since 2025-10-10
+     * @throws SQLException If there is an error accessing the database
+     */
     public static ArrayList<TrainTicket> processTravelLengthReport(int minLength, int maxLength) throws SQLException {
         TrainTicketDAO trainTicketDAO = new TrainTicketDAO();
         ArrayList<TrainTicket> tickets;
@@ -37,14 +56,18 @@ public class TrainTicketBO {
     }
 
     /**
-     * Calculate the ticket price of the train ticket.
+     * Calculates the ticket price for a given train ticket.
      *
-     * $5 per unit of travel length
-     * - 20% discount if student
-     * - 15% discount if frequent rider
+     * The ticket price is calculated as follows:
+     * - The base price is 5 dollars per travel length.
+     * - If the ticket is for a student, then the price is discounted by 20%.
+     * - If the ticket is for a frequent traveler, then the price is discounted by
+     * 15%.
      *
-     * @param ticket
-     * @return ticket price
+     * @param ticket The train ticket to calculate the price for.
+     * @return The calculated ticket price.
+     * @author Brownhill Udeh
+     * @since 2025-12-04
      */
     public static double calculateTicketPrice(TrainTicket ticket) {
         double ticketPrice = 5 * ticket.getTravelLength();
@@ -62,7 +85,11 @@ public class TrainTicketBO {
     }
 
     /**
-     * Set default values for a new train ticket
+     * Sets the default values for a new train ticket.
+     *
+     * @param ticket The train ticket to set the default values for.
+     * @author Brownhill Udeh
+     * @since 2025-12-04
      */
     public static void setTicketDefaults(TrainTicket ticket) {
         ticket.setTicketPrice(new BigDecimal(0));
@@ -71,13 +98,4 @@ public class TrainTicketBO {
         ticket.setTravelLength(0);
         ticket.setIssueDate(java.time.LocalDate.now());
     }
-
-//    public static void setTicketTypes(CodeValueRepository _cvr, HttpSession session) {
-//        List<CodeValue> ticketTypes = (List) session.getAttribute("ticketTypes");
-//        if (ticketTypes == null) {
-//            ticketTypes = _cvr.findByCodeTypeId(2);
-//            session.setAttribute("ticketTypes", ticketTypes);
-//        }
-//    }
-
 }

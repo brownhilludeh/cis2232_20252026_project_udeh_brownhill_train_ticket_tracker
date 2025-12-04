@@ -1,3 +1,20 @@
+/*
+===========================================================
+  Project:      Train Ticket Tracker
+  Course:       CIS 2232 - Advanced Java Web Development
+  File:         train_ticket_tracker.sql
+  Description:  Database creation script for the Train Ticket
+                Tracker application. This script initializes
+                the database, drops any previous version,
+                and creates the Ticket table used to store
+                passenger ticket details, travel information,
+                pricing, and status flags.
+
+  Author:       Brownhill Udeh
+  Date:         2025-12-04
+===========================================================
+*/
+
 -- Drop existing database if it exists
 DROP DATABASE IF EXISTS cis2232_train_ticket_tracker;
 

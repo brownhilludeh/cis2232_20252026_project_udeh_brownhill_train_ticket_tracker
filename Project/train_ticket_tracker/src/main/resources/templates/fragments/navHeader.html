@@ -4,55 +4,91 @@
 <body>
 
 <!-- Navbar Fragment -->
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
 
         <!-- Brand Logo + Text -->
         <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-            <img src="/images/t3-logo.png" class="logo img-fluid" alt="Logo">
-            <h2 class="h5 mb-0 text-white ms-2">Train Ticket Tracker</h2>
+            <img src="/images/t3-logo.png" class="logo img-fluid me-2" alt="Logo" style="height:32px;">
+            <span class="fw-semibold">Train Ticket Tracker</span>
         </a>
 
         <!-- Mobile Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Navbar Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
 
                 <!-- Train Ticket Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Train Ticket</a>
+                    <a class="nav-link dropdown-toggle"
+                       href="#" role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Train Ticket
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" th:href="@{/ticket}">Train Ticket List</a></li>
-                        <li><a class="dropdown-item" th:href="@{/ticket/add}">Add Train Ticket</a></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/ticket}">
+                                Train Ticket List
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/ticket/add}">
+                                Add Train Ticket
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
                 <!-- Reports Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
+                <li class="nav-item dropdown ms-lg-2">
+                    <a class="nav-link dropdown-toggle"
+                       href="#" role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Reports
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" th:href="@{/report/ticket/date-range}">Issued Date Range</a></li>
-                        <li><a class="dropdown-item" th:href="@{/report/ticket/travel-range}">Travel Length Range</a></li>
-                        <li><a class="dropdown-item" th:href="@{/report/ticket/type}">Ticket Type</a></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/report/ticket/date-range}">
+                                Issued Date Range
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/report/ticket/travel-range}">
+                                Travel Length Range
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/report}">
+                                Reports Index
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
-                <!-- Train API Dropdown (NEW) -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Train API</a>
+                <!-- Train API Dropdown -->
+                <li class="nav-item dropdown ms-lg-2">
+                    <a class="nav-link dropdown-toggle"
+                       href="#" role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Train API
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <!-- Default page (HBD), loads timetable -->
-                            <a class="dropdown-item" th:href="@{/train-api/timetable}">Station Timetable</a>
+                            <a class="dropdown-item" th:href="@{/train-api/timetable}">
+                                All Station Timetable
+                            </a>
                         </li>
                         <li>
                             <a class="dropdown-item" th:href="@{'/train-api/timetable?station=BTN'}">
@@ -67,14 +103,12 @@
                     </ul>
                 </li>
 
-                <!-- Other Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Other</a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" th:href="@{/about}">About</a></li>
-                        <li><a class="dropdown-item" th:href="@{/pirate}">Pirate</a></li>
-                    </ul>
+                <!-- About (standalone) -->
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <a class="btn btn-outline-light btn-sm px-3"
+                       th:href="@{/about}">
+                        About
+                    </a>
                 </li>
 
             </ul>

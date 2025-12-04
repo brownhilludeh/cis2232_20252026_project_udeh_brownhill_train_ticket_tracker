@@ -4,7 +4,6 @@ import ca.hccis.t3.bo.TrainTicketBO;
 import ca.hccis.t3.bo.TrainTicketValidationBO;
 import ca.hccis.t3.jpa.entity.TrainTicket;
 import ca.hccis.t3.repositories.TrainTicketRepository;
-import ca.hccis.t3.repositories.CodeValueRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -35,12 +33,10 @@ import java.util.Optional;
 public class TrainTicketController {
 
     private final TrainTicketRepository _ttr;
-    private final CodeValueRepository _cvr;
 
     @Autowired
-    public TrainTicketController(TrainTicketRepository bpr, CodeValueRepository cvr) {
+    public TrainTicketController(TrainTicketRepository bpr) {
         _ttr = bpr;
-        _cvr = cvr;
     }
 
     @Autowired
@@ -51,9 +47,9 @@ public class TrainTicketController {
      * Returns the list of tickets view.
      *
      * @param model
-     *            the model object which will be used to pass data to the view
+     *                the model object which will be used to pass data to the view
      * @param session
-     *            the session object which will be used to store data
+     *                the session object which will be used to store data
      * @return the view to list all tickets
      * @author Brownhill Udeh
      * @since 2025-10-31
@@ -67,7 +63,6 @@ public class TrainTicketController {
         model.addAttribute("ticket", new TrainTicket());
         return "ticket/list";
     }
-
 
     /**
      * Deletes a ticket with a given id.
@@ -83,7 +78,6 @@ public class TrainTicketController {
         return "redirect:/ticket";
     }
 
-
     /**
      * Add a new ticket. Set default values for the ticket.
      *
@@ -95,9 +89,6 @@ public class TrainTicketController {
      */
     @RequestMapping("/add")
     public String add(Model model, HttpSession session) {
-
-//        TrainTicketBO.setTicketTypes(_cvr, session);
-//        TrainTicketBO.setTicketTypes(_cvr, session);
         TrainTicket ticket = new TrainTicket();
         TrainTicketBO.setTicketDefaults(ticket);
         model.addAttribute("ticket", ticket);
@@ -115,26 +106,22 @@ public class TrainTicketController {
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model, HttpSession session) {
 
-//        TrainTicketBO.setTicketTypes(_cvr, session);
-
         Optional ticket = _ttr.findById(id);
         if (ticket.isPresent()) {
             model.addAttribute("ticket", ticket.get());
             return "ticket/add";
         }
 
-        //todo How can we communcicate this to the view.
         model.addAttribute("message", "Could not load the train ticket");
         return "redirect:/ticket";
     }
-
 
     /**
      * Submit method that processes add and edit and any form submission
      *
      * @param model
      * @param request
-     * @param ticket       what is being added or modified
+     * @param ticket        what is being added or modified
      * @param bindingResult Result of SQL
      * @return add with errors or ticket
      * @author Brownhill Udeh
@@ -144,8 +131,7 @@ public class TrainTicketController {
     public String submit(
             Model model,
             @Valid @ModelAttribute("ticket") TrainTicket ticket,
-            BindingResult bindingResult
-    ) {
+            BindingResult bindingResult) {
         // Set default ticketPrice before validation
         if (ticket.getTicketPrice() == null) {
             ticket.setTicketPrice(BigDecimal.ZERO);
@@ -180,7 +166,6 @@ public class TrainTicketController {
         return "redirect:/ticket";
     }
 
-
     /**
      * Search for a customer name
      *
@@ -193,10 +178,10 @@ public class TrainTicketController {
     @RequestMapping("/search")
     public String search(Model model, @ModelAttribute("ticket") TrainTicket ticket) {
 
-        //**********************************************************************
-        //Use repository method created to find any entities which contain
-        //the name entered on the list page.
-        //**********************************************************************
+        // **********************************************************************
+        // Use repository method created to find any entities which contain
+        // the name entered on the list page.
+        // **********************************************************************
         model.addAttribute("tickets", _ttr.findByNameContaining(ticket.getName()));
         logger.debug("searched for ticket name:" + ticket.getName());
         return "ticket/list";

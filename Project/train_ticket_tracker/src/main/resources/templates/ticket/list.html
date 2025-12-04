@@ -31,7 +31,7 @@
 
     <!-- Tickets Table -->
     <div class="table-responsive shadow-sm rounded">
-        <table id="ticketsTable" class="table table-striped table-hover table-bordered align-middle mb-0">
+        <table id="dataTables" class="table table-striped table-hover table-bordered align-middle mb-0">
             <thead class="table-dark">
             <tr>
                 <th>ID</th>
@@ -56,16 +56,45 @@
                 <td th:text="${ticket.departureTime}"></td>
                 <td th:text="${ticket.destination}"></td>
                 <td th:text="${ticket.travelLength}"></td>
+                <!-- Adjust formatting here if you have a formatter -->
                 <td th:text="${ticket.ticketPrice}"></td>
-                <td th:text="${ticket.isStudent ? 'Yes' : 'No'}"></td>
-                <td th:text="${ticket.isFrequent ? 'Yes' : 'No'}"></td>
+
+                <!-- Student badge -->
                 <td>
-                    <a th:href="@{/ticket/edit/{id}(id=${ticket.id})}" class="btn btn-sm btn-primary me-1">
-                        <i class="bi bi-pencil-square"></i> Edit
+                            <span th:if="${ticket.isStudent}"
+                                  class="badge bg-success">
+                                Yes
+                            </span>
+                    <span th:unless="${ticket.isStudent}"
+                          class="badge bg-secondary">
+                                No
+                            </span>
+                </td>
+
+                <!-- Frequent badge -->
+                <td>
+                            <span th:if="${ticket.isFrequent}"
+                                  class="badge bg-info text-dark">
+                                Yes
+                            </span>
+                    <span th:unless="${ticket.isFrequent}"
+                          class="badge bg-secondary">
+                                No
+                            </span>
+                </td>
+
+                <!-- Actions -->
+                <td class="text-center">
+                    <a th:href="@{/ticket/edit/{id}(id=${ticket.id})}"
+                       class="btn btn-sm btn-outline-primary me-1">
+                        <i class="bi bi-pencil-square"></i>
+                        Edit
                     </a>
-                    <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}" class="btn btn-sm btn-danger"
-                       onclick="return confirm('Are you sure?')">
-                        <i class="bi bi-trash"></i> Delete
+                    <a th:href="@{/ticket/delete/{id}(id=${ticket.id})}"
+                       class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Are you sure you want to delete this ticket?');">
+                        <i class="bi bi-trash"></i>
+                        Delete
                     </a>
                 </td>
             </tr>
@@ -78,22 +107,30 @@
 <!-- Footer -->
 <div th:replace="fragments/footer :: footer"></div>
 
-<!-- Scripts -->
+<!--&lt;!&ndash; Scripts &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script src="../js/cis.js"></script>-->
+<!--<script th:src="@{/js/js.cis.js}"></script>-->
+
+<!--<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>-->
+
+
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#ticketsTable').DataTable({
-            paging: true,
-            searching: true,
-            ordering: true,
-            info: true
-        });
-    });
-</script>
+<!-- custom JS -->
+<script th:src="@{/js/cis.js}"></script>
+
+
 
 </body>
 </html>

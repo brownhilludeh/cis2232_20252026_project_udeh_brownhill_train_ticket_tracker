@@ -29,6 +29,10 @@ public class TrainAPIController {
 
     /**
      * Returns the list of available station options for the dropdown
+     *
+     * @return the list of station options
+     * @author Brownhill Udeh
+     * @since 2025-12-04
      */
     private List<StationOption> getStationOptions() {
         List<StationOption> stations = new ArrayList<>();
@@ -51,6 +55,16 @@ public class TrainAPIController {
         return stations;
     }
 
+    /**
+     * Displays the train timetable for a given station code.
+     *
+     * @param stationCode the station code (e.g. HBD, BTN, etc.)
+     * @param model       the model object to pass data to the view
+     * @param session     the session object to store data
+     * @return the view to show the train timetable
+     * @author Brownhill Udeh
+     * @since 2025-12-04
+     */
     @GetMapping("/timetable")
     public String getStationTimetable(
             @RequestParam(name = "station", defaultValue = "HBD") String stationCode,
@@ -69,8 +83,7 @@ public class TrainAPIController {
         try {
             String url = String.format(
                     "https://transportapi.com/v3/uk/train/station_timetables/%s.json?app_id=%s&app_key=%s&train_status=passenger",
-                    stationCode, APP_ID, APP_KEY
-            );
+                    stationCode, APP_ID, APP_KEY);
 
             logger.info("Fetching timetable for station: {}", stationCode);
 

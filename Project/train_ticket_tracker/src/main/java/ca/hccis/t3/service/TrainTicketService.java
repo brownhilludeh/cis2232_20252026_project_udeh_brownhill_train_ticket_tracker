@@ -21,6 +21,8 @@ public class TrainTicketService {
      * @param minLength Minimum travel length.
      * @param maxLength Maximum travel length.
      * @return List of tickets in the range.
+     * @since 2025-10-10
+     * @author Brownhill Udeh
      */
     public List<TrainTicket> getTicketsByLengthRange(int minLength, int maxLength) {
         return repository.findByTravelLengthBetween(minLength, maxLength);
@@ -30,4 +32,3 @@ public class TrainTicketService {
         return repository.findByIssueDateBetween(startDate, endDate);
     }
 }
-

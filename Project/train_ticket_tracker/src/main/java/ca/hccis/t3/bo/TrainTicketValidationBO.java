@@ -7,6 +7,15 @@ import java.util.ArrayList;
 
 public class TrainTicketValidationBO {
 
+    /**
+     * Validate the issue date of a train ticket.
+     *
+     * @param ticket The train ticket to validate the issue date for.
+     * @return A list of errors if the issue date is invalid, otherwise an empty
+     *         list.
+     * @author Brownhill Udeh
+     * @since 2025-12-04
+     */
     public ArrayList<String> validateIssueDate(TrainTicket ticket) {
         ArrayList<String> errors = new ArrayList<>();
 

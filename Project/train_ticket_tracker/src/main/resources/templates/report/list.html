@@ -7,31 +7,63 @@
 <div th:replace="fragments/navHeader :: navbar"></div>
 
 <!-- Main Container -->
-<div class="container text-center mt-5">
+<div class="container my-5">
 
-    <!-- Page Title -->
-    <h2 class="h2 mb-4">Reports</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-12">
 
-    <!-- Reports Table -->
-    <div class="table-responsive d-inline-block">
-        <table class="table table-bordered table-striped w-auto">
-            <tbody>
-            <tr>
-                <td>
-                    <a th:href="@{/report/ticket/date-range}" class="text-decoration-none">
-                        <span th:text="#{label.report.ticket.date.range}">Date Range</span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a th:href="@{/report/ticket/travel-range}" class="text-decoration-none">
-                        <span th:text="#{label.report.ticket.length.range}">Travel Length Range</span>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <!-- Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+
+                    <!-- Title -->
+                    <h2 class="card-title mb-3">Reports</h2>
+                    <p class="text-muted mb-4">
+                        Choose a report type below to continue.
+                    </p>
+                    <hr>
+
+                    <!-- Report Options -->
+                    <div class="d-grid gap-3">
+
+                        <!-- Date Range Report -->
+                        <a th:href="@{/report/ticket/date-range}"
+                           class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-between">
+                            <span class="text-start">
+                                <span class="fw-semibold" th:text="#{label.report.ticket.date.range}">
+                                    Date Range
+                                </span><br>
+                                <small class="text-muted">
+                                    View tickets within a specific issued date range
+                                </small>
+                            </span>
+                            <span class="ms-3">
+                                <i class="bi bi-calendar-range fs-4"></i>
+                            </span>
+                        </a>
+
+                        <!-- Travel Length Range Report -->
+                        <a th:href="@{/report/ticket/travel-range}"
+                           class="btn btn-outline-secondary btn-lg d-flex align-items-center justify-content-between">
+                            <span class="text-start">
+                                <span class="fw-semibold" th:text="#{label.report.ticket.length.range}">
+                                    Travel Length Range
+                                </span><br>
+                                <small class="text-muted">
+                                    Analyze tickets by travel length range
+                                </small>
+                            </span>
+                            <span class="ms-3">
+                                <i class="bi bi-graph-up-arrow fs-4"></i>
+                            </span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
 </div>

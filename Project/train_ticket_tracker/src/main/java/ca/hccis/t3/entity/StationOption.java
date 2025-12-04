@@ -2,10 +2,17 @@ package ca.hccis.t3.entity;
 
 public class StationOption {
 
+    /**
+     * The code of the station
+     * 
+     * @since 2025-12-04
+     * @author Brownhill Udeh
+     */
     private String code;
     private String name;
 
-    public StationOption() {}
+    public StationOption() {
+    }
 
     public StationOption(String code, String name) {
         this.code = code;

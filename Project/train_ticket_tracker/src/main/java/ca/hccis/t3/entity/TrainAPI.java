@@ -1,5 +1,11 @@
 package ca.hccis.t3.entity;
 
+/**
+ * Entity class to represent a train API response.
+ * 
+ * @author Brownhill Udeh
+ * @since 2025-12-04
+ */
 public class TrainAPI {
     private String aimedDepartureTime;
     private String originName;

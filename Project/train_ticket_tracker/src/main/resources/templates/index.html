@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/head :: headerFragment('Train Ticket Tracker')"></head>
-<body>
-<div th:replace="fragments/navHeader :: navbar"></div>
 
-<div class="container text-center mt-5">
-    <h2 class="h2">
-        <span th:text="#{label.welcome.to}"></span>
-        <span th:text="#{application.name}"></span>
-    </h2>
-</div>
+<body class="d-flex flex-column min-vh-100">
 
-<div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fragments/navHeader :: navbar"></div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <main class="flex-fill">
+        <!-- Hero Section with Background Video -->
+        <section class="hero-video-container">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source th:src="@{/video/background.mp4}" type="video/mp4">
+                Your browser does not support the video tag.
+                <!-- video source: https://www.pexels.com/video/inside-a-tunnel-856134/ -->
+            </video>
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content text-center">
+                <h2 class="h2 text-white">
+                    <span th:text="#{label.welcome.to}"></span>
+                    <span th:text="#{application.name}"></span>
+                </h2>
+            </div>
+        </section>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

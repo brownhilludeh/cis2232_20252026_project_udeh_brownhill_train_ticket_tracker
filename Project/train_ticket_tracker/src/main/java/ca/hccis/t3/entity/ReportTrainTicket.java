@@ -3,6 +3,12 @@ package ca.hccis.t3.entity;
 import ca.hccis.t3.jpa.entity.TrainTicket;
 import java.util.List;
 
+/**
+ * Description: ReportTrainTicket
+ * 
+ * @author Brownhill Udeh
+ * @since 2025-10-31
+ */
 public class ReportTrainTicket {
 
     private Integer minLength;

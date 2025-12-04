@@ -3,97 +3,136 @@
 <head th:replace="fragments/head :: headerFragment('Add/Edit Ticket')"></head>
 
 <body>
+
+<!-- Navbar -->
 <div th:replace="fragments/navHeader :: navbar"></div>
 
+<!-- Main Container -->
 <div class="container my-5">
-    <h2 class="mb-4" th:text="${ticket.id} != null ? 'Edit Train Ticket' : 'Add Train Ticket'"></h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
 
-    <form th:action="@{/ticket/submit}" th:object="${ticket}" method="post" class="row g-3">
+            <!-- Card -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
 
-        <input type="hidden" th:field="*{id}" />
+                    <!-- Title -->
+                    <h2 class="card-title text-center mb-3"
+                        th:text="${ticket.id} != null ? 'Edit Train Ticket' : 'Add Train Ticket'">
+                        Add Train Ticket
+                    </h2>
+                    <p class="text-center text-muted mb-4">
+                        Enter passenger and journey details below.
+                    </p>
+                    <hr>
 
-        <!-- name -->
-        <div class="col-md-6">
-            <label class="form-label">Passenger Name</label>
-            <input type="text" class="form-control" th:field="*{name}">
-            <div class="text-danger" th:errors="*{name}"></div>
+                    <!-- Form -->
+                    <form th:action="@{/ticket/submit}" th:object="${ticket}" method="post" class="row g-3">
+
+                        <!-- Hidden ID -->
+                        <input type="hidden" th:field="*{id}"/>
+
+                        <!-- Passenger Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Passenger Name</label>
+                            <input type="text" class="form-control" th:field="*{name}">
+                            <div class="text-danger small" th:errors="*{name}"></div>
+                        </div>
+
+                        <!-- Issue Date -->
+                        <div class="col-md-6">
+                            <label class="form-label">Issue Date</label>
+                            <input type="date" class="form-control" th:field="*{issueDate}">
+                            <div class="text-danger small" th:errors="*{issueDate}"></div>
+                        </div>
+
+                        <!-- From Station -->
+                        <div class="col-md-6">
+                            <label class="form-label">From Station</label>
+                            <input type="text" class="form-control" th:field="*{station}">
+                            <div class="text-danger small" th:errors="*{station}"></div>
+                        </div>
+
+                        <!-- Destination -->
+                        <div class="col-md-6">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control" th:field="*{destination}">
+                            <div class="text-danger small" th:errors="*{destination}"></div>
+                        </div>
+
+                        <!-- Departure Time -->
+                        <div class="col-md-4">
+                            <label class="form-label">Departure Time</label>
+                            <input type="time" class="form-control" th:field="*{departureTime}">
+                            <div class="text-danger small" th:errors="*{departureTime}"></div>
+                        </div>
+
+                        <!-- Travel Length -->
+                        <div class="col-md-4">
+                            <label class="form-label">Travel Length (km)</label>
+                            <input type="number" class="form-control" th:field="*{travelLength}" min="0" step="1">
+                            <div class="text-danger small" th:errors="*{travelLength}"></div>
+                        </div>
+
+                        <!-- Ticket Price (display only) -->
+                        <div class="col-md-4">
+                            <label class="form-label">Ticket Price</label>
+                            <input type="text"
+                                   class="form-control"
+                                   disabled
+                                   readonly
+                                   th:value="${ticket.id != null} ? ${ticket.ticketPrice} : ''">
+                            <!-- Hidden field for submission -->
+                            <input type="hidden" th:field="*{ticketPrice}">
+                        </div>
+
+                        <!-- Flags: Student & Frequent -->
+                        <div class="col-md-6">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" th:field="*{isStudent}" id="isStudent">
+                                <label class="form-check-label" for="isStudent">
+                                    Student discount?
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" th:field="*{isFrequent}" id="isFrequent">
+                                <label class="form-check-label" for="isFrequent">
+                                    Frequent traveller?
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Business Rule Errors -->
+                        <div class="col-12" th:if="${businessValidationErrorsStartDate}">
+                            <div class="alert alert-danger py-2 mb-0">
+                                <ul class="mb-0">
+                                    <li th:each="err : ${businessValidationErrorsStartDate}"
+                                        th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="col-12 mt-3 d-flex justify-content-between">
+                            <a class="btn btn-outline-secondary" th:href="@{/ticket}">Cancel</a>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
         </div>
-
-        <!-- issue date -->
-        <div class="col-md-6">
-            <label class="form-label">Issue Date (yyyy-mm-dd)</label>
-            <input type="text" class="form-control" th:field="*{issueDate}">
-            <div class="text-danger" th:errors="*{issueDate}"></div>
-        </div>
-
-        <!-- station -->
-        <div class="col-md-6">
-            <label class="form-label">From Station</label>
-            <input type="text" class="form-control" th:field="*{station}">
-            <div class="text-danger" th:errors="*{station}"></div>
-        </div>
-
-        <!-- destination -->
-        <div class="col-md-6">
-            <label class="form-label">Destination</label>
-            <input type="text" class="form-control" th:field="*{destination}">
-            <div class="text-danger" th:errors="*{destination}"></div>
-        </div>
-
-        <!-- departure time -->
-        <div class="col-md-4">
-            <label class="form-label">Departure Time (hh:mm)</label>
-            <input type="text" class="form-control" th:field="*{departureTime}">
-            <div class="text-danger" th:errors="*{departureTime}"></div>
-        </div>
-
-        <!-- travel length -->
-        <div class="col-md-4">
-            <label class="form-label">Travel Length (km)</label>
-            <input type="number" class="form-control" th:field="*{travelLength}">
-            <div class="text-danger" th:errors="*{travelLength}"></div>
-        </div>
-
-        <!-- ticket price (disabled) -->
-        <div class="col-md-4">
-            <label class="form-label">Ticket Price</label>
-            <!-- Display only -->
-            <input type="text" class="form-control" disabled readonly
-                   th:value="${ticket.id != null ? ticket.ticketPrice : ''}">
-
-            <!-- Hidden field for submission -->
-            <input type="hidden" th:field="*{ticketPrice}">
-
-        </div>
-
-
-        <!-- Student -->
-        <div class="col-md-6 form-check mt-3">
-            <input class="form-check-input" type="checkbox" th:field="*{isStudent}">
-            <label class="form-check-label">Student Discount?</label>
-        </div>
-
-        <!-- Frequent -->
-        <div class="col-md-6 form-check mt-3">
-            <input class="form-check-input" type="checkbox" th:field="*{isFrequent}">
-            <label class="form-check-label">Frequent Traveller?</label>
-        </div>
-
-        <!-- validation errors from business rule -->
-        <div class="col-12 text-danger" th:if="${businessValidationErrorsStartDate}">
-            <ul>
-                <li th:each="err : ${businessValidationErrorsStartDate}" th:text="${err}"></li>
-            </ul>
-        </div>
-
-        <div class="col-12 mt-4">
-            <button class="btn btn-primary" type="submit">Save</button>
-            <a class="btn btn-secondary" href="/ticket">Cancel</a>
-        </div>
-    </form>
-
+    </div>
 </div>
 
+<!-- Footer -->
 <div th:replace="fragments/footer :: footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
