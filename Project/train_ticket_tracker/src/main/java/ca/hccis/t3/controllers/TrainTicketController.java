@@ -132,39 +132,94 @@ public class TrainTicketController {
             Model model,
             @Valid @ModelAttribute("ticket") TrainTicket ticket,
             BindingResult bindingResult) {
-        // Set default ticketPrice before validation
+
+        // Ensure a non-null ticket price so you don't get null pointer issues
         if (ticket.getTicketPrice() == null) {
             ticket.setTicketPrice(BigDecimal.ZERO);
         }
 
-        // Custom validation (issue date)
+        // Validation errors (annotations on TrainTicket) ===
+        if (bindingResult.hasErrors()) {
+            logValidationErrors(bindingResult);
+
+            // Stay on the add/edit page with the same ticket
+            model.addAttribute("ticket", ticket);
+            return "ticket/add";
+        }
+
+        // Custom business validation (issue date rule etc.)
         TrainTicketValidationBO ttvbo = new TrainTicketValidationBO();
         ArrayList<String> validationErrorsStartDate = ttvbo.validateIssueDate(ticket);
-        for (String err : validationErrorsStartDate) {
-            bindingResult.rejectValue("issueDate", "error.ticket", err);
-        }
 
-        // Check for any validation errors
-        if (bindingResult.hasErrors()) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Validation error - Brownhill Udeh");
-            for (ObjectError error : bindingResult.getAllErrors()) {
-                System.out.println(error.getObjectName() + "-" + error.toString() + "-" + error.getDefaultMessage());
+        if (!validationErrorsStartDate.isEmpty()) {
+            // Attach errors to the field so th:errors on issueDate can show them
+            for (String err : validationErrorsStartDate) {
+                bindingResult.rejectValue("issueDate", "error.ticket", err);
             }
-            System.out.println("--------------------------------------------");
 
+            logValidationErrors(bindingResult);
+
+            model.addAttribute("ticket", ticket);
             model.addAttribute("businessValidationErrorsStartDate", validationErrorsStartDate);
-            return "ticket/list";
+
+            return "ticket/add";   // again: stay on the form page
         }
 
-        // Calculate the actual ticket price after validation passes
+        // All validations passed – now calculate price & save ===
         TrainTicketBO.calculateTicketPrice(ticket);
-
-        // Save ticket
         _ttr.save(ticket);
 
         return "redirect:/ticket";
     }
+
+    private void logValidationErrors(BindingResult bindingResult) {
+        System.out.println("--------------------------------------------");
+        System.out.println("Validation error - Brownhill Udeh");
+        for (ObjectError error : bindingResult.getAllErrors()) {
+            System.out.println(error.getObjectName() + " - " + error.toString()
+                    + " - " + error.getDefaultMessage());
+        }
+        System.out.println("--------------------------------------------");
+    }
+
+//    @RequestMapping("/submit")
+//    public String submit(
+//            Model model,
+//            @Valid @ModelAttribute("ticket") TrainTicket ticket,
+//            BindingResult bindingResult) {
+//        // Set default ticketPrice before validation
+//        if (ticket.getTicketPrice() == null) {
+//            ticket.setTicketPrice(BigDecimal.ZERO);
+//        }
+//
+//        // Custom validation (issue date)
+//        TrainTicketValidationBO ttvbo = new TrainTicketValidationBO();
+//        ArrayList<String> validationErrorsStartDate = ttvbo.validateIssueDate(ticket);
+//        for (String err : validationErrorsStartDate) {
+//            bindingResult.rejectValue("issueDate", "error.ticket", err);
+//        }
+//
+//        // Check for any validation errors
+//        if (bindingResult.hasErrors()) {
+//            System.out.println("--------------------------------------------");
+//            System.out.println("Validation error - Brownhill Udeh");
+//            for (ObjectError error : bindingResult.getAllErrors()) {
+//                System.out.println(error.getObjectName() + "-" + error.toString() + "-" + error.getDefaultMessage());
+//            }
+//            System.out.println("--------------------------------------------");
+//
+//            model.addAttribute("businessValidationErrorsStartDate", validationErrorsStartDate);
+//            return "ticket/list";
+//        }
+//
+//        // Calculate the actual ticket price after validation passes
+//        TrainTicketBO.calculateTicketPrice(ticket);
+//
+//        // Save ticket
+//        _ttr.save(ticket);
+//
+//        return "redirect:/ticket";
+//    }
 
     /**
      * Search for a customer name

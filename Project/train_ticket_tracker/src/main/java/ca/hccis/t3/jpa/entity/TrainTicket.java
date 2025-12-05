@@ -1,8 +1,7 @@
 package ca.hccis.t3.jpa.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,7 +25,8 @@ public class TrainTicket {
     @Column(name = "name", nullable = false, length = 20)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Issue date is required")
+    @PastOrPresent(message = "Issue date cannot be in the future")
     @Column(name = "issueDate", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate issueDate;
@@ -36,17 +36,20 @@ public class TrainTicket {
     @Column(name = "station", nullable = false, length = 50)
     private String station;
 
-    @Size(max = 8)
-    @NotNull
+//    @Size(max = 8)
+//    @NotNull
+    @NotBlank(message = "Departure time is required")
+    @Size(max = 8, message = "Departure time must be in the format HH:mm")
     @Column(name = "departureTime", nullable = false, length = 8)
     private String departureTime;
 
-    @Size(min = 1, max = 50)
-    @NotNull
+    @NotBlank(message = "Destination is required")
+    @Size(min = 3, max = 50, message = "Destination must be between 3 and 50 characters")
     @Column(name = "destination", nullable = false, length = 50)
     private String destination;
 
-    @NotNull
+    @NotNull(message = "Travel length is required")
+    @Min(value = 1, message = "Travel length must be at least 1 km")
     @Column(name = "travelLength", nullable = false)
     private Integer travelLength;
 
